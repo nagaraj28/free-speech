@@ -9,15 +9,19 @@ import CardActions from '@material-ui/core/CardActions';
 import Avatar from '@material-ui/core/Avatar';
 import IconButton from '@material-ui/core/IconButton';
 import FavoriteBorderSharpIcon from '@material-ui/icons/FavoriteBorderSharp';
-import classes from "./card.css";
+import styles from "./card.module.css";
+import { Box } from "@material-ui/core";
 import Image from "../../assets/image9.jpg";
 
 
 export default function PostCard(){
 
-  return <Card className="post-ctnr">
+    let arr=[1,2,3];
+
+  return <Box className={styles.postsctnr}> 
+       {   arr.map(item=>{
+      return  <Card className={styles.postctnr}>
     <CardContent>
-         
           <IconButton aria-label="settings">
       <AccountCircleSharpIcon/>
       </IconButton>
@@ -27,7 +31,7 @@ export default function PostCard(){
       </CardContent>
     {/*  <img  className="responsive-img" src={Image} /> */}
       <CardMedia
-       className="img-ctnr"
+       className={styles.imgctnr}
         image={Image}
         title="Paella dish"
       />
@@ -45,6 +49,10 @@ export default function PostCard(){
         Be the first one to like.
         </Typography>
        </Card>
+       })
+}
+  </Box>
+ 
 
 
 }

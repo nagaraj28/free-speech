@@ -1,0 +1,37 @@
+.modalctnr{
+    max-width: 500px !important;
+    position: absolute;
+    top: 10%;
+    left: 35%;
+    background-color: whitesmoke;
+    text-align: center;
+    /*padding: 1rem 2rem;*/
+   
+}
+.txtimgctnr{
+    display: flex;
+    padding: 1rem;
+}
+.profileavatarmodal{
+ margin-right: 20px;
+}
+.txtarea{
+    border-radius: 10px;
+}
+.lastbtns{
+    padding: 1rem;
+}
+.modalcancelbtn{
+    margin-top: 5px;
+    margin-bottom: 25px;
+}
+.postbtn{
+    margin-top: 25px; 
+    margin-bottom: 25px;
+    padding: 0.5rem 1.5rem;
+    float: right;
+    border-radius: 10px;
+    background-color: #000;
+    color: #fff;
+    font-size: 18px;
+}

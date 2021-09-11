@@ -1,0 +1,15 @@
+.sideprofilectnr{
+        position: absolute;
+        top: 15%;
+        right: 10%;
+}
+.sideprofile{
+        display: flex;
+        margin-top: 10px;
+}
+.sideprofileavatar{  
+        width:54px !important;
+        height: 54px !important;
+        margin-right: 20px;
+        margin-bottom: 20px;
+}
