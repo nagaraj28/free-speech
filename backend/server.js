@@ -28,6 +28,8 @@ mongoose.connect(uri, {useNewUrlParser: true}
         console.log(`server running on port ${port}`);
     })
 
-    const usersRouter = require('./routes/users');
+    const usersRouter = require('./routes/userscredentials');
+    const userProfileRouter = require('./routes/userprofiledetails');
 
     app.use('/users', usersRouter);
+    app.use('/userprofile',userProfileRouter);

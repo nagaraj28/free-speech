@@ -1,16 +1,23 @@
 const router = require('express').Router();
-const Users = require('../models/users.model');
+const usersCredentials = require('../models/userscredentials.model');
+const userProfileDetails = require('../models/userprofiledetails.model');
 
 
-//fetches all users data
+
+
+/*
+fetches all users data 
+remove it after testing...
+
+*/
 router.route('/').get((req, res) => {
-  Users.find()
+  usersCredentials.find()
     .then(users => res.json(users))
     .catch(err => res.status(400).json('Error: ' + err));
 });
 
 
-//creating user || registering user
+//creating user or registering user
 router.route('/add').post((req, res) => {
   const email = req.body.email;
   const password = req.body.password;
@@ -19,14 +26,19 @@ router.route('/add').post((req, res) => {
   const bio = req.body.bio;
   const link = req.body.link;
   const avatar = req.body.avatar;
-
-
-  Users.exists({email:email}).then(exists=>{
+  usersCredentials.exists({email:email}).then(exists=>{
     if(!exists){
       console.log("email not exists in db",email);
-      const newUser = new Users({email,password,username,fullname,bio,link,avatar});
+      const newUser = new usersCredentials({email,password});
       newUser.save()
-        .then(() => res.json('User added!'))
+        .then((userCreated)=>{
+          res.json('User added!');
+         const userid=userCreated.id;
+      const userProfileHydrate = new userProfileDetails({userid,username,fullname,bio,link,avatar});
+      userProfileHydrate.save().then(()=>{
+        res.json('user profile hydrated...')
+      });
+      })
         .catch(err => res.status(400).json('Error: ' + err));
     }
     else{
@@ -38,8 +50,9 @@ router.route('/add').post((req, res) => {
   })
 });
 
-
-
+/*
+updating userdetails except id,email and password
+*/
 
 
 module.exports = router;

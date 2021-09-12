@@ -5,7 +5,7 @@ const Schema = mongoose.Schema;
 const postSchema = new Schema({
     userid:{
         type:Schema.Types.ObjectId,
-        ref:'Users',
+        ref:'userCredentials',
     },
     caption:{
         type:String,
@@ -17,19 +17,23 @@ const postSchema = new Schema({
     likes:[{
         userliked:{
             type:Schema.Types.ObjectId,
-        ref:'User',
+        ref:'userCredentials',
         }
     }],
     comments:[{
         commentbyUser:{
             type:Schema.Types.ObjectId,
-            ref:'User',
+            ref:'userCredentials',
         },
         commentBody:{
             type:String,
         }
     }]
 })
+
+
+
+
 
 const posts = mongoose.model('posts',postSchema);
 
