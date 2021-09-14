@@ -11,15 +11,15 @@ const postSchema = new Schema({
         type:String,
     },
     postimg:{
-        Type:String,
-        
+        type:String,
     },
-    likes:[{
-        userliked:{
+    likes:[
+        {
             type:Schema.Types.ObjectId,
         ref:'userCredentials',
+        unique:true
         }
-    }],
+     ],
     comments:[{
         commentbyUser:{
             type:Schema.Types.ObjectId,
@@ -28,7 +28,9 @@ const postSchema = new Schema({
         commentBody:{
             type:String,
         }
-    }]
+    }],
+},{
+    timestamps:true,
 })
 
 

@@ -27,7 +27,6 @@ update user profile details
 
 router.route('/profileupdate').post((req,res)=>{
   const userid=req.body.userid;
-
   const  profileDataToUpdate ={"$set":{
      username : req.body.username,
      fullname : req.body.fullname,
@@ -36,10 +35,15 @@ router.route('/profileupdate').post((req,res)=>{
      avatar : req.body.avatar,
   }
 };
-  
- userProfileDetails.findOneAndUpdate({userid:userid},profileDataToUpdate,{ "new": true, "upsert": true }).then(()=>{res.json("profile updated to list")})
- .catch(err => res.status(400).json('error while adding followerid into userid table ' + err));
-
+  userProfileDetails.exists({username:req.body.username}).then(result=>{
+    if(!result)
+    userProfileDetails.findOneAndUpdate({userid:userid},profileDataToUpdate,{ "new": true, "upsert": true }).then(()=>{res.json("profile updated to list")})
+    .catch(err => res.status(400).json('error while adding followerid into userid table ' + err));
+    else
+    res.send("username taken...")
+  }
+  ).catch(err=>res.status(400).json(`error updating profile ${err}`));
+ 
 });
 
 
@@ -54,10 +58,12 @@ add follower
 
 router.route('/follow').post((req,res)=>{
    const userid=req.body.userid;
-   const followerid = req.body.followerId;
+   const followerid = req.body.followerid;
    /*
    add  followerid into user follower's array
    */
+  console.log(userid);
+  console.log(followerid);
   userProfileDetails.findOneAndUpdate({userid:userid},{"$addToSet":{
     "followers":followerid
   }},{ "new": true, "upsert": true }).then(()=>{res.json("follower added to list")})
@@ -68,7 +74,10 @@ router.route('/follow').post((req,res)=>{
    */
   userProfileDetails.findOneAndUpdate({userid:followerid},{"$addToSet":{
     "following":userid
-  }},{ "new": true, "upsert": true }).then(()=>{res.json("user added to following list")})
+  }},{ "new": true, "upsert": true }).then(()=>{
+    //res.json("user added to following list")
+    console.log("user added to following list...")
+  })
   .catch(err => res.status(400).json('Error: ' + err));
 });
 
@@ -92,7 +101,9 @@ router.route('/unfollow').post((req,res)=>{
   */
  userProfileDetails.findOneAndUpdate({userid:followerid},{"$pull":{
    "following":userid
- }},{ "new": true, "upsert": true }).then(()=>{res.json("user removed from following list")})
+ }},{ "new": true, "upsert": true }).then(()=>{
+   /*res.json("user removed from following list")*/
+  })
  .catch(err => res.status(400).json('Error: ' + err));
 });
 

@@ -26,6 +26,9 @@ router.route('/add').post((req, res) => {
   const bio = req.body.bio;
   const link = req.body.link;
   const avatar = req.body.avatar;
+  const followers = [];
+  const following = [];
+  let userid;
   usersCredentials.exists({email:email}).then(exists=>{
     if(!exists){
       console.log("email not exists in db",email);
@@ -33,13 +36,18 @@ router.route('/add').post((req, res) => {
       newUser.save()
         .then((userCreated)=>{
           res.json('User added!');
-         const userid=userCreated.id;
-      const userProfileHydrate = new userProfileDetails({userid,username,fullname,bio,link,avatar});
-      userProfileHydrate.save().then(()=>{
-        res.json('user profile hydrated...')
-      });
+          console.log("useradded ")
+          userid=userCreated.id;
+         console.log(userid);
+         const userProfileHydrate = new userProfileDetails({userid,username,fullname,bio,link,avatar,followers,following});
+      userProfileHydrate.save().then((err,userDetail)=>{
+        console.log("userprofile added/hydrated...")
+      // console.log("userDetails",userDetail);
+       //console.log("error in profile add",err);
+      }).catch(err=>{
+        console.log("error in user profile adding",err);
       })
-        .catch(err => res.status(400).json('Error: ' + err));
+      });
     }
     else{
       res.json("user already exists");
@@ -47,12 +55,10 @@ router.route('/add').post((req, res) => {
     }
   }).catch(err=>{
     console.log(err);
-  })
+  });
+  
 });
 
-/*
-updating userdetails except id,email and password
-*/
 
 
 module.exports = router;

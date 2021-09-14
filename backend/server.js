@@ -30,6 +30,10 @@ mongoose.connect(uri, {useNewUrlParser: true}
 
     const usersRouter = require('./routes/userscredentials');
     const userProfileRouter = require('./routes/userprofiledetails');
+   const userPosts = require('./routes/userposts');
+
 
     app.use('/users', usersRouter);
-    app.use('/userprofile',userProfileRouter);
+   app.use('/userprofile',userProfileRouter);
+   app.use('/user',userPosts);
+
