@@ -1,0 +1,21 @@
+.userprofileparent{
+        display: grid !important;
+        grid-template-columns: 25% 75%;
+        max-width: 600px !important;
+        margin: 0 auto !important;
+        padding:20px 30px;
+        border-bottom: 2px solid rgb(177, 176, 176);
+}
+.userprofileavatar{  
+    width:100px !important;
+    height: 100px !important;
+    margin-right: 20px;
+    margin-bottom: 20px;
+}
+.userprofilechildone,.userprofilechildtwo{
+    display: grid !important;
+    grid-template-columns: auto auto auto;
+}
+.editprofilebtn{
+    background-color: rgb(233, 233, 245) !important;
+}

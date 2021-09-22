@@ -21,6 +21,22 @@ router.route('/posts/:id').get((req,res)=>{
             }
         })
 })
+
+
+/*
+get only user posts 
+
+**/
+
+router.route('/userposts/:id').get((req,res)=>{
+    posts.find({userid:req.params.id},(err,alltheposts)=>{
+        if(!err)
+        res.send(alltheposts);
+        else{
+            res.status(400).json("error in fetching user posts");
+                }
+    });
+})
  
 /*
 add new post
@@ -31,12 +47,14 @@ router.route('/addpost').post((req,res)=>{
         userid : req.body.userid,
         caption  : req.body.caption,
         postimg : req.body.postimg,
+        likes :req.body.likes,
     }
         const newPost = new posts(postToAdd);
         newPost.save().then(()=>{
                 console.log("post added successfully");
-                res.status(200).json("posted added successfully...")
+                res.status(200).send(newPost);
         }).catch((err)=>{
+            console.log(err);
             res.status(400).json("error in adding post");
         })
 })

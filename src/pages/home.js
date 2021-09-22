@@ -4,7 +4,7 @@ import PostCard from "../components/card/card";
 import Box from '@material-ui/core/Box';
 import Container from '@material-ui/core/Container';
 import ProfileFeedSideCard from "../components/profilefeedsidecard/profilefeedsidecard";
-import UploadModal from "../components/uploadmodal/uploadmoddal";
+import UploadModal from "../components/uploadmodal/uploadmodal";
 
 export default function Home(){
 
