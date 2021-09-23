@@ -83,18 +83,23 @@ post liked
 */
 router.route('/likepost').post((req,res)=>{
          
-    const postid =req.body.id;
+    const postid =req.body.postid;
     const userid = req.body.userid;
+    console.log(postid,userid);
     const addLike = {
         "$addToSet":{
             "likes":userid
         }
     }
     posts.findByIdAndUpdate(postid,addLike,(err,result)=>{
-        if(err)
+        if(err){
+            console.log("post like not success")
         res.json(`error liking post $(err)`);
-        else
+    }
+        else{
+            console.log("post like success")
         res.json("post successfully liked...");
+        }
     })
  
 });
@@ -104,7 +109,7 @@ post dislike
 */
 router.route('/removepostlike').post((req,res)=>{
          
-      const postid =req.body.id;
+      const postid =req.body.postid;
     const userid = req.body.userid;
     const removeLike = {
         "$pull":{

@@ -1,6 +1,6 @@
 import React from "react";
 import NavBar from "../components/navbar/navbar";
-import PostCard from "../components/card/card";
+import PostCard from "../components/card/cardsListHome";
 import Box from '@material-ui/core/Box';
 import Container from '@material-ui/core/Container';
 import ProfileFeedSideCard from "../components/profilefeedsidecard/profilefeedsidecard";

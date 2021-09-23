@@ -1,9 +1,19 @@
 const router = require('express').Router();
 const userProfileDetails = require('../models/userprofiledetails.model');
 
+
+/*
+get all the users profile data
+*/
+
+router.route('/').get((req,res)=>{
+    userProfileDetails.find().then(userProfiles=>{
+      res.send(userProfiles);
+    }).catch(err=>res.status(400).json("error fetching all users profiles"+err))
+});
+
 /*
 get user details
-
 */
 router.route('/:id').get((req,res)=>{
     //const userid = req.body.userid;

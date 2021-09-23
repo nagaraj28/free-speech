@@ -2,6 +2,10 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import {useSelector} from "react-redux";
 import axios from "axios";
 
+
+/*
+fetches all the posts (user with following list people's posts .)
+*/
 export const fetchPosts = createAsyncThunk('user/posts',
 async (userid)=>{
     try{
@@ -29,12 +33,61 @@ export const uploadPost = createAsyncThunk('user/addpost',
  }
 );
 
+/* add a  new like */
+export const loadLikePost = createAsyncThunk('user/likepost',
+ async (currentPost)=>{
+    console.log("curretnPost in slice",currentPost)
+    try{
+        const data = 
+        await axios.post("http://localhost:5000/user/likepost",currentPost);
+        return data;
+    }
+    catch(error){
+        console.log("error uploading post",error?.response);
+        return error?.response
+    }
+ }
+);
+/* remove   like */
+export const loadremoveLikeFromPost = createAsyncThunk('user/removepostlike',
+ async (currentPost)=>{
+     console.log(currentPost)
+    try{
+        const data = 
+        await axios.post("http://localhost:5000/user/removepostlike",currentPost);
+        return data;
+    }
+    catch(error){
+        console.log("error uploading post",error?.response);
+        return error?.response
+    }
+ }
+);
+
+/*
+fetch all the users profile like username ,bio,link,avatar etc..
+*/
+export const loadingusersprofile = createAsyncThunk('userprofile',
+
+async ()=>{
+    try{
+        const {data} = await axios.get("http://localhost:5000/userprofile/");
+        return data;
+    }catch(error){
+        console.log("error fetching users profile ",error);
+    }
+} 
+
+)
+
 
  const cardSlice = createSlice({
     name:'posts',
     initialState:{
         posts:[],
         loading:true,
+        loadingUsers:true,
+        usersProfile:[]
     },
     extraReducers:{
     [fetchPosts.pending]:(state)=>{
@@ -60,6 +113,28 @@ export const uploadPost = createAsyncThunk('user/addpost',
     [uploadPost.rejected]:(state,action)=>{
       console.log("error uploading new post");
     },
+    [loadLikePost.fulfilled]:(action)=>{
+            console.log("post liked",action.payload);
+    },
+    [loadremoveLikeFromPost.rejected]:()=>{
+        console.log("error liking post...");
+    },
+    [loadremoveLikeFromPost.fulfilled]:()=>{
+        console.log("removed like from post");
+},
+[loadremoveLikeFromPost.rejected]:()=>{
+    console.log("error removing like from post...");
+},
+    [loadingusersprofile.fulfilled]:(state,action)=>{
+        state.loadingUsers=false;
+        state.usersProfile=action.payload;
+    },
+    [loadingusersprofile.pending]:(state,action)=>{
+        state.loadingUsers=true;
+    },
+    [loadingusersprofile.rejected]:(state,action)=>{
+        state.loadingUsers=false;
+    }
     }
 });
 
