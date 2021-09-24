@@ -22,17 +22,15 @@ export default function PostCard(){
 
     useEffect(()=>{
         dispatch(fetchPosts('613f5757976e93d14ff39160'));
-        dispatch(loadingusersprofile('nag2'));
+        dispatch(loadingusersprofile());
     },[])
-    
     const {loading,posts,usersProfile} =usePosts();
-
     console.log(loading,posts);
  //   let likes =[];
    //  likes = posts&&posts.likes;
     
   return <Box className={styles.postsctnr}> 
-       {   posts&&posts.map(post=>{
+       {   posts&&usersProfile.length>0&&posts.map(post=>{
           const [{avatar,username}] = usersProfile.filter(user =>(user.userid===post.userid));
              return <CardData post={post} place={"home"} avatar={avatar} username={username} />
        })

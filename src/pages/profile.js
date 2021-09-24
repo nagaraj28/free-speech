@@ -10,5 +10,4 @@ export default function Profile(){
     <UploadModal/>
     <CardListProfile/>
     </>
-
 }

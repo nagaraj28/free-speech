@@ -16,6 +16,7 @@ import Image from "../../assets/image9.jpg";
 import {loadUserProfile,loadUserPosts,useUserProfileDetails} from "../userProfile/userProfileSlice";
 import CardData from "./cardPost";
 import {useParams} from "react-router-dom";
+import { loadingusersprofile } from "./cardSlice";
  
 
 export default function PostCard(){
@@ -26,6 +27,7 @@ export default function PostCard(){
 } = useUserProfileDetails(); 
     useEffect(()=>{
         console.log("from post component " ,username)
+        dispatch(loadingusersprofile());
       //  dispatch(loadUserProfile()); uncomment after authentication in order to get userName
         dispatch(loadUserPosts());
     },[])

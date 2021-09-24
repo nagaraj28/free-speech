@@ -1,4 +1,4 @@
-import React,{} from "react";
+import React,{ useEffect, useState } from "react";
 import {useHistory,Link} from "react-router-dom";
 import AddBoxSharpIcon from '@material-ui/icons/AddBoxSharp';
 import HomeSharpIcon from '@material-ui/icons/HomeSharp';
@@ -10,16 +10,23 @@ import Typography from '@material-ui/core/Typography';
 import classes from "./navbar.css";
 import {useDispatch} from "react-redux";
 import { uploadModalToggle } from "../uploadmodal/uploadModalSlice";
+import {findUsers} from "./utils/searchUsers";
+import {usePosts} from "../card/cardSlice"
 
 export default function NavBar(){
   const dispatch = useDispatch();
   const history = useHistory();
+  const [profiles,setProfiles] = useState([]);
+  const {usersProfile} = usePosts();
+    console.log(profiles);
   return <Box className="nav-ctnr">
       <Typography component="div">
           FreeSpeech
       </Typography>
       <Typography component="div"> 
-         <input type="search" placeholder="search-box" />
+         <input type="search" placeholder="search-box" onChange={(e)=>{
+           setProfiles(findUsers(usersProfile,e.target.value));
+         }} />
       </Typography>
       <Typography component="div">
           <AddBoxSharpIcon  onClick={()=>dispatch(uploadModalToggle())}/>
