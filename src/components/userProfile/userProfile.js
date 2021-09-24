@@ -5,19 +5,22 @@ import profileImage from "../../assets/image9.jpg";
 import {useUserProfileDetails,loadUserProfile,loadUserPosts} from "./userProfileSlice";
 import { ExitToApp } from "@material-ui/icons";
 import styles from "./userProfile.module.css";
+import {useParams} from "react-router";
  
 
 export default function UserProfile(){
     const dispatch = useDispatch();
+    const {username} = useParams();
+    console.log(username);
     useEffect(()=>{
-        dispatch(loadUserProfile());
+        dispatch(loadUserProfile(username));
         dispatch(loadUserPosts());
     },[]);
     const {
         loadingProfile,userDetails,loadingPosts,userPosts
     } = useUserProfileDetails(); 
     console.log(loadingProfile,userDetails,loadingPosts,userPosts)
-          const {userid,username,fullname,bio,link,avatar,followers,following} = userDetails;
+          const {userid,fullname,bio,link,avatar,followers,following} = userDetails;
 
     return (<Box className={styles.userprofileparent}>
                  <Box>
@@ -25,7 +28,7 @@ export default function UserProfile(){
                 </Box>
                 <Box>
                     <Container  className={styles.userprofilechildone}>
-                    <Typography   p>{username}</Typography >
+                    <Typography   p>{userDetails.username}</Typography >
                     <Button className={styles.editprofilebtn}> edit profile </Button>
                     <ExitToApp/>
                     </Container>

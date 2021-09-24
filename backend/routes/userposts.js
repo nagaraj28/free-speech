@@ -64,7 +64,6 @@ delete  post with given id
 */
 
 router.route('/deletepost/:postid').post((req,res)=>{
-         
         const postid = req.params.postid;
         posts.findByIdAndDelete(postid,(err,post)=>{
                 if(err){
@@ -76,8 +75,6 @@ router.route('/deletepost/:postid').post((req,res)=>{
         })
 
 })
-
-
 /*
 post liked
 */
@@ -101,14 +98,12 @@ router.route('/likepost').post((req,res)=>{
         res.json("post successfully liked...");
         }
     })
- 
 });
 
 /*
 post dislike
 */
 router.route('/removepostlike').post((req,res)=>{
-         
       const postid =req.body.postid;
     const userid = req.body.userid;
     const removeLike = {
@@ -122,7 +117,6 @@ router.route('/removepostlike').post((req,res)=>{
         else
         res.json("remove dislike from post success...");
     })
-  
 });
 
 

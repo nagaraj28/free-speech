@@ -3,8 +3,20 @@ import React from "react";
 import axios from "axios";
 import { useSelector } from "react-redux";
 
-export const loadUserProfile  = createAsyncThunk('userprofile/userid',
-async(userid="613f5757976e93d14ff39160")=>{
+export const loadUserProfile  = createAsyncThunk('userprofile/username',
+async(username)=>{
+    try{
+      const {data} =   await axios.get(`http://localhost:5000/userprofile/${username}`);
+      return data;
+    }
+    catch(error){
+        console.log("error raised in loaduserprofile");
+        return error?.response;
+    }
+});
+
+export const loadProfileofPost  = createAsyncThunk('userprofile/userid',
+async(userid)=>{
     try{
       const {data} =   await axios.get(`http://localhost:5000/userprofile/${userid}`);
       return data;

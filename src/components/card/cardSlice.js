@@ -65,6 +65,21 @@ export const loadremoveLikeFromPost = createAsyncThunk('user/removepostlike',
 );
 
 /*
+delete post from profile page;
+*/
+export const loaddeletepost = createAsyncThunk('user/deletepost/postid',
+    async (postid)=>{
+        try{
+          const {data} =  await axios.post(`http://localhost:5000/user/deletepost/${postid}`);
+          return data;
+        }
+        catch(err){
+            console.log("error deleting post",err);
+        }
+    }
+);
+
+/*
 fetch all the users profile like username ,bio,link,avatar etc..
 */
 export const loadingusersprofile = createAsyncThunk('userprofile',
@@ -134,6 +149,12 @@ async ()=>{
     },
     [loadingusersprofile.rejected]:(state,action)=>{
         state.loadingUsers=false;
+    },
+    [loaddeletepost.rejected]:(state,action)=>{
+        console.log("error deleting post");
+    },
+    [loaddeletepost.fulfilled]:(state,action)=>{
+       console.log("post delete success");
     }
     }
 });

@@ -1,5 +1,5 @@
 import React,{} from "react";
-import {useHistory} from "react-router-dom";
+import {useHistory,Link} from "react-router-dom";
 import AddBoxSharpIcon from '@material-ui/icons/AddBoxSharp';
 import HomeSharpIcon from '@material-ui/icons/HomeSharp';
 import NotificationsSharpIcon from '@material-ui/icons/NotificationsSharp';
@@ -10,8 +10,6 @@ import Typography from '@material-ui/core/Typography';
 import classes from "./navbar.css";
 import {useDispatch} from "react-redux";
 import { uploadModalToggle } from "../uploadmodal/uploadModalSlice";
-
-
 
 export default function NavBar(){
   const dispatch = useDispatch();
@@ -27,7 +25,9 @@ export default function NavBar(){
           <AddBoxSharpIcon  onClick={()=>dispatch(uploadModalToggle())}/>
           <HomeSharpIcon/>
           <NotificationsSharpIcon/>
+          <Link to="">
           <AccountCircleSharpIcon onClick={()=>{history.push("/profile")}}/>
+          </Link>
      </Typography>
   </Box>
 

@@ -8,7 +8,7 @@ export default function Profile(){
     <NavBar/>
     <UserProfile/>
     <UploadModal/>
-  {  <CardListProfile/>}
+    <CardListProfile/>
     </>
 
 }

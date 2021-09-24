@@ -15,10 +15,10 @@ router.route('/').get((req,res)=>{
 /*
 get user details
 */
-router.route('/:id').get((req,res)=>{
+router.route('/:username').get((req,res)=>{
     //const userid = req.body.userid;
    /// let userid;
-   userProfileDetails.findOne({userid:req.params.id}).then((err,user)=>{
+   userProfileDetails.findOne({username:req.params.username}).then((err,user)=>{
     //  console.log(req.params.id);
     if(!err)
       res.send(user);

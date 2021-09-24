@@ -15,11 +15,12 @@ import styles from "./card.module.css";
 import { DeleteSharp } from "@material-ui/icons";
 import { Box } from "@material-ui/core";
 import Image from "../../assets/image9.jpg";
-import {fetchPosts,usePosts,loadLikePost,loadremoveLikeFromPost} from "./cardSlice";
+import {loadLikePost,loadremoveLikeFromPost,loaddeletepost} from "./cardSlice";
 
 export default function CardData({post,place,avatar,username}){
         const dispatch = useDispatch();
         const [isLiked,setIsLiked] = useState(false);
+        const [isPostDeleted,setIsPostDeleted] = useState(false);
         const [totalLikes,setTotalLikes] = useState(post.likes);
        
         useEffect(()=>{
@@ -29,11 +30,11 @@ export default function CardData({post,place,avatar,username}){
             })
         },[])
         // console.log({avatar,username});
-    return <Card className={styles.postctnr}>
+    return <Card className={styles.postctnr+" "+(isPostDeleted&&styles.postctnrfadeout)}>
         
     <CardContent>
           <IconButton aria-label="settings">
-        { (avatar&&avatar.length>0)?<Avatar   alt="side profile image" src={avatar}/>:<AccountCircleSharpIcon/>}
+        { (avatar&&avatar.length>0)?<Avatar  alt="side profile image" src={avatar}/>:<AccountCircleSharpIcon/>}
       </IconButton>
          <Typography component="span" >
         {username}
@@ -53,9 +54,9 @@ export default function CardData({post,place,avatar,username}){
         title="Paella dish"
       />
        }
-     
-      <CardActions className={styles.cardbtns}>
-      {!isLiked?<FavoriteBorderSharpIcon style={{fontSize:"30px"}}  onClick={()=>{
+            {isPostDeleted&&<Typography className={styles.postdeletetxt} compnent="span">post deleted...</Typography>}
+      {!isPostDeleted&&<CardActions className={styles.cardbtns} >
+      {!isLiked?<FavoriteBorderSharpIcon   style={{fontSize:"30px"}}  onClick={()=>{
         const userid="613f5757976e93d14ff39160"
         const currentPost = {
           postid:post._id,
@@ -77,7 +78,7 @@ export default function CardData({post,place,avatar,username}){
              return likes;
          })
       }}
-       />:<FavoriteIcon style={{color:"#EF4444",fontSize:"30px"}} onClick = {()=>{
+       />:<FavoriteIcon label="Disabled" style={{color:"#EF4444",fontSize:"30px"}} onClick = {()=>{
            const userid="613f5757976e93d14ff39160";
            const currentPost = {
             postid:post._id,
@@ -90,11 +91,15 @@ export default function CardData({post,place,avatar,username}){
             const likes = totalLikes.filter(user=>user!==userid);
             return likes;
         })
-       }}/>}
-       {(place!=="home")&&<DeleteSharp style={{color:"#991B1B",fontSize:"30px"}}/>}
+       }}  />}
+       {(place!=="home")&&<DeleteSharp style={{color:"#991B1B",fontSize:"30px"}} onClick={()=>{
+         dispatch(loaddeletepost(post._id));
+         setIsPostDeleted(true);
+       }} />}
       </CardActions> 
-      {(totalLikes&&totalLikes.length>0)?<Typography variant="body2" color="textSecondary" component="a"> {totalLikes.length} likes</Typography>:<Typography variant="body2" color="textSecondary" component="a">
-        Be the first one to like.
+}
+      {(totalLikes&&totalLikes.length>0)?<Typography variant="body2" color="textSecondary" component="a"> {!(isPostDeleted)&&`${totalLikes.length} likes`}</Typography>:<Typography variant="body2" color="textSecondary" component="a">
+        {!isPostDeleted&&"Be the first one to like."}
         </Typography>
        }
        </Card>;

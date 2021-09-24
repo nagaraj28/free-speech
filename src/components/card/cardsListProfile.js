@@ -15,15 +15,18 @@ import { Box } from "@material-ui/core";
 import Image from "../../assets/image9.jpg";
 import {loadUserProfile,loadUserPosts,useUserProfileDetails} from "../userProfile/userProfileSlice";
 import CardData from "./cardPost";
-
+import {useParams} from "react-router-dom";
+ 
 
 export default function PostCard(){
   const dispatch = useDispatch();
+  const {username} = useParams();
   const {
     loadingProfile,userDetails,loadingPosts,userPosts
 } = useUserProfileDetails(); 
     useEffect(()=>{
-        dispatch(loadUserProfile());
+        console.log("from post component " ,username)
+      //  dispatch(loadUserProfile()); uncomment after authentication in order to get userName
         dispatch(loadUserPosts());
     },[])
     

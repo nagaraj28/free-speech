@@ -22,7 +22,7 @@ export default function PostCard(){
 
     useEffect(()=>{
         dispatch(fetchPosts('613f5757976e93d14ff39160'));
-        dispatch(loadingusersprofile());
+        dispatch(loadingusersprofile('nag2'));
     },[])
     
     const {loading,posts,usersProfile} =usePosts();

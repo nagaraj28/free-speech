@@ -6,12 +6,13 @@ import { Switch,
   Route,} from  "react-router-dom";
 
 function App() {
+  
   return (
     <Switch>
       <Route exact path="/">
       <Home/>
         </Route>
-        <Route exact path="/profile">
+        <Route exact path="/profile/:username">
       <Profile/>
         </Route>
     </Switch>
