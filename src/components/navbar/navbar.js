@@ -7,33 +7,36 @@ import AccountCircleSharpIcon from '@material-ui/icons/AccountCircleSharp';
 import Box from '@material-ui/core/Box';
 import Container from '@material-ui/core/Container';
 import Typography from '@material-ui/core/Typography';
-import classes from "./navbar.css";
+import styles from "./navbar.module.css";
 import {useDispatch} from "react-redux";
 import { uploadModalToggle } from "../uploadmodal/uploadModalSlice";
 import {findUsers} from "./utils/searchUsers";
 import {usePosts} from "../card/cardSlice"
-
+import SearchContainer from "./searchContainer";
+import ProfileMiniCard from "../profileminicard/profileminicard";
+import  {useUserProfileDetails} from "../userProfile/userProfileSlice"
 export default function NavBar(){
+ 
   const dispatch = useDispatch();
-  const history = useHistory();
-  const [profiles,setProfiles] = useState([]);
+  const [searchedProfiles,setSearchedProfiles] = useState([]);
   const {usersProfile} = usePosts();
-    console.log(profiles);
-  return <Box className="nav-ctnr">
+ //   console.log(searchedProfiles);
+  return <Box className={styles.navctnr}>
       <Typography component="div">
-          FreeSpeech
+          FreeSpeech 
       </Typography>
-      <Typography component="div"> 
+      <Box component="div"> 
          <input type="search" placeholder="search-box" onChange={(e)=>{
-           setProfiles(findUsers(usersProfile,e.target.value));
-         }} />
-      </Typography>
+           setSearchedProfiles(findUsers(usersProfile,e.target.value));
+         }} />  
+         <SearchContainer searchedprofiles={searchedProfiles}/>
+      </Box>
       <Typography component="div">
           <AddBoxSharpIcon  onClick={()=>dispatch(uploadModalToggle())}/>
           <HomeSharpIcon/>
           <NotificationsSharpIcon/>
-          <Link to="">
-          <AccountCircleSharpIcon onClick={()=>{history.push("/profile")}}/>
+          <Link to={`/profile/nag2`}>
+          <AccountCircleSharpIcon onClick={()=>{}}/>
           </Link>
      </Typography>
   </Box>

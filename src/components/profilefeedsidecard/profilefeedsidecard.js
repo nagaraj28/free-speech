@@ -11,7 +11,7 @@ import IconButton from '@material-ui/core/IconButton';
 import FavoriteBorderSharpIcon from '@material-ui/icons/FavoriteBorderSharp';
 import { Box } from "@material-ui/core";
 import profileImage from "../../assets/image9.jpg";
-import { Container } from "react-bootstrap";
+import { Container ,Button} from "react-bootstrap";
 import styles from "./profilefeedsidecard.module.css";
 export default function ProfileFeedSideCard(){
 
@@ -24,7 +24,7 @@ export default function ProfileFeedSideCard(){
                 <Typography component="h2">Nagaraju Rathna</Typography>
                 </Typography>
             </Container>
-            <Container>
+          <Container>
                 <Typography component="p">Suggestions For You</Typography>
             </Container>
             <Container className={styles.sideprofile}>
@@ -34,6 +34,8 @@ export default function ProfileFeedSideCard(){
                 <Typography component="h2">Bruce Wayne</Typography>
                 </Typography>
             </Container>
+
+       
             
     </Box>
 

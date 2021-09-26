@@ -6,6 +6,7 @@
     background-color: whitesmoke;
     text-align: center;
     /*padding: 1rem 2rem;*/
+    z-index: 2;
    
 }
 .txtimgctnr{

@@ -53,19 +53,10 @@ router.route('/profileupdate').post((req,res)=>{
     res.send("username taken...")
   }
   ).catch(err=>res.status(400).json(`error updating profile ${err}`));
- 
 });
-
-
-
-
-
-
 /*
 add follower
-
 */
-
 router.route('/follow').post((req,res)=>{
    const userid=req.body.userid;
    const followerid = req.body.followerid;
@@ -116,6 +107,49 @@ router.route('/unfollow').post((req,res)=>{
   })
  .catch(err => res.status(400).json('Error: ' + err));
 });
+
+/*
+fetch following  userDetails list
+
+*/
+
+router.route('/following/:userid').get((req,res)=>{
+  userProfileDetails.findOne({userid:req.params.userid},(err,user)=>{
+      if(!err){
+        userProfileDetails.find({
+          'userid':{
+              $in:[user.following]
+          }
+         },(err,alltheposts)=>{
+           
+          res.send(alltheposts);
+      }
+         )
+      }
+  })
+})
+
+/*
+fetch following  userDetails list
+
+*/
+
+router.route('/followers/:userid').get((req,res)=>{
+  userProfileDetails.findOne({userid:req.params.userid},(err,user)=>{
+      if(!err){
+        userProfileDetails.find({
+          'userid':{
+              $in:[user.followers]
+          }
+          
+         },(err,alltheposts)=>{
+          res.send(alltheposts);
+      }
+         )
+      }
+  })
+})
+
 
 
 module.exports = router;

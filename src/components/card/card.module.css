@@ -1,10 +1,9 @@
-
-
 .postsctnr{
+  max-width: 700px;
     height:85vh;
-    overflow-y: auto;
+    margin:0 auto;
     margin-top: 40px;
-    overflow-y: scroll;
+    overflow-y: auto;
 }
 .postctnr{
   position: relative;

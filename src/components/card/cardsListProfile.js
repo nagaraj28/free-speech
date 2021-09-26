@@ -30,7 +30,7 @@ export default function PostCard(){
         dispatch(loadingusersprofile());
       //  dispatch(loadUserProfile()); uncomment after authentication in order to get userName
         dispatch(loadUserPosts());
-    },[])
+    },[username])
     
 
  //   let likes =[];

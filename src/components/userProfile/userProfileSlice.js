@@ -39,6 +39,32 @@ async(userid="613f5757976e93d14ff39160")=>{
     }
 });
 
+export const loadingUserFollowing  = createAsyncThunk('userprofile/following/userid',
+async(userid)=>{
+    try{
+      const {data} =   await axios.get(`http://localhost:5000/userprofile/following/${userid}`);
+      return data;
+    }
+    catch(error){
+        console.log("error raised in load userprofile");
+        return error?.response;
+    }
+});
+
+export const loadingUserFollowers  = createAsyncThunk('userprofile/followers/userid',
+async(userid)=>{
+    try{
+        console.log(`http://localhost:5000/userprofile/followers/${userid}`);
+              const {data} =   await axios.get(`http://localhost:5000/userprofile/followers/${userid}`);
+      return data;
+    }
+    catch(error){
+        console.log("error raised in load userprofile");
+        return error?.response;
+    }
+});
+
+
 
 const userProfileSlice = createSlice({
     name:"userprofile",
@@ -47,6 +73,10 @@ const userProfileSlice = createSlice({
         userDetails:{},
         loadingPosts:true,
         userPosts:[],
+        userFollowing:[],
+        userFollowers:[],
+        loadingFollowing:true,
+        loadingFollowers:true
     },
     extraReducers:{
         [loadUserProfile.pending]:(state)=>{
@@ -69,6 +99,28 @@ const userProfileSlice = createSlice({
         },
         [loadUserPosts.rejected]:(state,action)=>{
             state.loadingPosts = false;
+            state.error = action.payload;
+        },
+        [loadingUserFollowing.pending]:(state)=>{
+            state.loadingFollowing = true;
+        },
+        [loadingUserFollowing.fulfilled]:(state,action)=>{
+            state.loadingFollowing = false;
+            state.userFollowing = action.payload;
+        },
+        [loadingUserFollowing.rejected]:(state,action)=>{
+            state.loadingFollowing = false;
+            state.error = action.payload;
+        },
+        [loadingUserFollowers.pending]:(state)=>{
+            state.loadingFollowers = true;
+        },
+        [loadingUserFollowers.fulfilled]:(state,action)=>{
+            state.loadingFollowers = false;
+            state.userFollowers = action.payload;
+        },
+        [loadingUserFollowers.rejected]:(state,action)=>{
+            state.loadingFollowers = false;
             state.error = action.payload;
         },
     }

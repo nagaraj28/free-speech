@@ -1,0 +1,28 @@
+.followingfollowersctnr{
+    position: absolute !important;
+    max-width: 400px !important;
+    background-color: red !important;
+    top: 15%;
+    left: 0;
+    right:0;
+    margin-left: auto;
+    margin-right: auto;
+    z-index: 2;
+    background-color: #F3F4F6 !important;
+    border-radius: 15px;
+    height: 70vh;
+}
+
+.followersctnr,followingctnr{
+    overflow-y: scroll;
+}
+.headerctnr{
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 2px solid #E4E4E7;
+    padding: 20px;
+}
+.nofollow{
+    margin-top: 100px !important;
+    text-align: center;
+}

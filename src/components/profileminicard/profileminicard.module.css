@@ -1,0 +1,29 @@
+.minictnr{
+    display: flex;
+}
+.searchprofile{
+    display: flex !important;
+    margin-top: 10px !important;
+   /* border-bottom: 1px solid #D6D3D1;*/
+    
+}
+.searchprofile:hover{
+    cursor: pointer;
+}
+.searchprofileavatar{  
+    width:40px !important;
+    height: 40px !important;
+    margin-right: 10px !important;
+    margin-bottom: 10px !important;
+}       
+
+.userutilbtn{
+  /*  display: flex !important;
+    justify-content: flex-end !important;
+    float: right !important;*/
+    margin-top: 15px !important;
+    font-size: 10px !important;     
+    margin-right: 5px !important;
+
+    background-color: rgb(233, 233, 245) !important;
+}

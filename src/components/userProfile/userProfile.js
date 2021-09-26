@@ -6,6 +6,7 @@ import {useUserProfileDetails,loadUserProfile,loadUserPosts} from "./userProfile
 import { ExitToApp } from "@material-ui/icons";
 import styles from "./userProfile.module.css";
 import {useParams} from "react-router";
+import { followingToggle,followersToggle } from "../followingOrfollowers/followingOrfollowersSlice";
  
 
 export default function UserProfile(){
@@ -15,7 +16,8 @@ export default function UserProfile(){
     useEffect(()=>{
         dispatch(loadUserProfile(username));
         dispatch(loadUserPosts());
-    },[]);
+
+    },[username]);
     const {
         loadingProfile,userDetails,loadingPosts,userPosts
     } = useUserProfileDetails(); 
@@ -34,8 +36,12 @@ export default function UserProfile(){
                     </Container>
                     <Container  className={styles.userprofilechildtwo}>
                     <Typography  p> {userPosts&&userPosts.length} posts </Typography >
-                    <Typography  p> {followers&&followers.length} followers </Typography >
-                    <Typography  p> {following&&following.length} following </Typography>
+                    <Typography   onClick={()=>{
+                            dispatch(followersToggle())
+                    }} p> {followers&&followers.length} followers </Typography >
+                    <Typography onClick={()=>{
+                            dispatch(followingToggle())
+                    }}  p> {following&&following.length} following </Typography>
                     </Container>
                     <Container  className={styles.userprofilechildtwo}>
                     <Typography  p>bio:-)  {bio&&bio}</Typography>
