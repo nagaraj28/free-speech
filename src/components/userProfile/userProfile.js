@@ -1,29 +1,33 @@
-import React, { useEffect } from "react";
+import React, { useEffect,useState } from "react";
 import { useDispatch } from "react-redux";
 import {Card,Box,Avatar,Typography,Button,Container} from '@material-ui/core';
 import profileImage from "../../assets/image9.jpg";
-import {useUserProfileDetails,loadUserProfile,loadUserPosts} from "./userProfileSlice";
+import {useUserProfileDetails,loadUserProfile,loadUserPosts,loadingUserFollowers} from "./userProfileSlice";
 import { ExitToApp } from "@material-ui/icons";
 import styles from "./userProfile.module.css";
 import {useParams} from "react-router";
-import { followingToggle,followersToggle } from "../followingOrfollowers/followingOrfollowersSlice";
+import { followingToggle,followersToggle, addFollowing, unFollow } from "../followingOrfollowers/followingOrfollowersSlice";
+import {useAuthenticationDetails} from "../authentication/authenticationSlice";
  
 
 export default function UserProfile(){
     const dispatch = useDispatch();
     const {username} = useParams();
-    console.log(username);
+    const {adminUserDetails} = useAuthenticationDetails();
     useEffect(()=>{
         dispatch(loadUserProfile(username));
-        dispatch(loadUserPosts());
-
+        dispatch(loadUserPosts());     
     },[username]);
     const {
         loadingProfile,userDetails,loadingPosts,userPosts
     } = useUserProfileDetails(); 
-    console.log(loadingProfile,userDetails,loadingPosts,userPosts)
+//   console.log(loadingProfile,userDetails,loadingPosts,userPosts)
           const {userid,fullname,bio,link,avatar,followers,following} = userDetails;
-
+          const [isFollowing,setIsFollowing] = useState((adminUserDetails&&adminUserDetails.following)?adminUserDetails.following.includes(userid):false);
+            const details = {
+                userid:adminUserDetails.userid,
+                followerid:userid
+            }
     return (<Box className={styles.userprofileparent}>
                  <Box>
                  <Avatar  className={styles.userprofileavatar} alt="user profile image" src={profileImage}/>
@@ -31,7 +35,16 @@ export default function UserProfile(){
                 <Box>
                     <Container  className={styles.userprofilechildone}>
                     <Typography   p>{userDetails.username}</Typography >
-                    <Button className={styles.editprofilebtn}> edit profile </Button>
+                    {
+                    (adminUserDetails.userid===userid)?<Button className={styles.editprofilebtn}>edit profile</Button>:isFollowing?
+                    <Button className={styles.editprofilebtn} onClick={()=>{
+                        setIsFollowing(false)
+                        dispatch(unFollow(details))
+                    }}>Following</Button>:<Button className={styles.editprofilebtn} onClick={()=>{
+                        setIsFollowing(true)
+                        dispatch(addFollowing(details))
+                    }}>Follow</Button>
+                    }
                     <ExitToApp/>
                     </Container>
                     <Container  className={styles.userprofilechildtwo}>

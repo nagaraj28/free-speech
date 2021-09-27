@@ -63,9 +63,7 @@ async(userid)=>{
         return error?.response;
     }
 });
-
-
-
+ 
 const userProfileSlice = createSlice({
     name:"userprofile",
     initialState:{

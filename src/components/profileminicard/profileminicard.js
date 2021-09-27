@@ -1,17 +1,27 @@
-import React,{useState} from "react";
+import React,{useEffect, useState} from "react";
 import styles from "./profileminicard.module.css";
 import profileImage from "../../assets/image9.jpg";
 import {Container,Avatar,Typography,Button, Box} from "@material-ui/core";
 import {Link} from "react-router-dom";
+import { loadingUserFollowing, useUserProfileDetails } from "../userProfile/userProfileSlice";
+import { useDispatch } from "react-redux";
+import { addFollowing,unFollow } from "../followingOrfollowers/followingOrfollowersSlice";
+import {useAuthenticationDetails} from "../authentication/authenticationSlice";
+export default function ProfileMiniCard({profile,page}){
 
-export default function ProfileMiniCard({profile}){
-
-    const {username,avatar,fullname} = profile;
-    const [isFollowing,setIsFollowing] = useState(false);
+    const {userid,username,avatar,fullname} = profile;
+    const dispatch = useDispatch();
+    const {userDetails} = useUserProfileDetails();
+    const {adminUserDetails} = useAuthenticationDetails();
+    const [isFollowing,setIsFollowing] = useState((adminUserDetails&&adminUserDetails.following)?adminUserDetails.following.includes(userid):false);
     const colors = ["#DC2626","#4D7C0F","#0E7490","#1E40AF","#BE185D"];
     const colorIndex = Math.floor(Math.random() * 5);
-
-
+    const details = {
+        userid:adminUserDetails.userid,
+        followerid:userid
+    }
+   // console.log(userDetails.following);
+   console.log(page);
     return (
             <Box className={styles.minictnr}>
           <Container className={styles.searchprofile} > 
@@ -30,11 +40,18 @@ export default function ProfileMiniCard({profile}){
                 </Link>
 
             </Container>
-                <Box>
-                {isFollowing?<Button className={styles.userutilbtn} onClick={()=>{setIsFollowing(false)}}>following</Button>:
-                <Button className={styles.userutilbtn} onClick={()=>{setIsFollowing(true)}}>follow</Button>
+                {(page!=="home"&&userid!==adminUserDetails.userid)&&<Box>
+                {isFollowing?<Button className={styles.userutilbtn} onClick={()=>{
+                setIsFollowing(false)
+                dispatch(unFollow(details))
+            }}>following</Button>:
+                <Button className={styles.userutilbtn} onClick={()=>{
+                    setIsFollowing(true)
+                        dispatch(addFollowing(details))
+                }} >follow</Button>
         }
                 </Box>
+}
               </Box>
       
     )

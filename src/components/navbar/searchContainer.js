@@ -10,7 +10,7 @@ export default function SearchContainer({searchedprofiles}){
         <Box className={styles.searchctnr}>
           {
               searchedprofiles&&searchedprofiles.length>0&&searchedprofiles.map(profile=>{
-             return <ProfileMiniCard profile={profile}/>
+             return <ProfileMiniCard profile={profile} page="home"/>
               }
               )
           }

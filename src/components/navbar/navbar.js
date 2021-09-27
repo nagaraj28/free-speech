@@ -20,7 +20,8 @@ export default function NavBar(){
   const dispatch = useDispatch();
   const [searchedProfiles,setSearchedProfiles] = useState([]);
   const {usersProfile} = usePosts();
- //   console.log(searchedProfiles);
+  console.log(usersProfile);
+   // console.log(searchedProfiles);
   return <Box className={styles.navctnr}>
       <Typography component="div">
           FreeSpeech 
