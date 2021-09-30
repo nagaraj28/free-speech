@@ -18,7 +18,7 @@ export default function FollowingOrFollowers() {
         dispatch(loadingUserFollowing(userDetails.userid));
         else if(showFollowersDialog)
         dispatch(loadingUserFollowers(userDetails.userid));
-    },[showFollowersDialog,showFollowingDialog]);
+    },[showFollowersDialog===true||showFollowingDialog===true]);
     console.log(userFollowers,userFollowing);
     return  <>{(showFollowersDialog||showFollowingDialog)&&<Box className={styles.followingfollowersctnr}>
                 {showFollowingDialog&&(<Box  className={styles.headerctnr}><Typography>following</Typography><ClearSharpIcon onClick={()=>{

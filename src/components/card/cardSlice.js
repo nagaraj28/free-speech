@@ -18,6 +18,9 @@ async (userid)=>{
 }
 );
 
+
+
+
 /* upload new post */
 export const uploadPost = createAsyncThunk('user/addpost',
  async (newPost)=>{
@@ -91,9 +94,7 @@ async ()=>{
     }catch(error){
         console.log("error fetching users profile ",error);
     }
-} 
-
-)
+})
 
 
  const cardSlice = createSlice({
@@ -102,7 +103,7 @@ async ()=>{
         posts:[],
         loading:true,
         loadingUsers:true,
-        usersProfile:[]
+        usersProfile:[],
     },
     extraReducers:{
     [fetchPosts.pending]:(state)=>{
@@ -116,10 +117,8 @@ async ()=>{
         state.loading = false;
         state.error=action.payload;
     },
-    [fetchPosts.fulfilled]:(state,action)=>{
-        state.loading = false;
-        state.posts=action.payload;
-    },
+  
+    
     [uploadPost.fulfilled]:(state,action)=>{
         console.log(action.payload);
         state.loading = false;

@@ -12,14 +12,15 @@ import styles from "./uploadmodal.module.css";
 import {useUploadModal,uploadModalToggle} from "./uploadModalSlice";
 import {useDispatch } from "react-redux";
 import {uploadPost} from "../card/cardSlice";
+import { useAuthenticationDetails } from "../authentication/authenticationSlice";
 
 export default function UploadModal(){
   const dispatch = useDispatch();
     const [images, setImages] = useState();
     const [caption, setCaption] = useState([]);
-
+  const {adminUserDetails} = useAuthenticationDetails();
        const {isModalOpen} = useUploadModal();
-       console.log("modal value is" ,isModalOpen)
+      // console.log("modal value is" ,isModalOpen)
   const maxNumber = 1;
   const onChange = (imageList, addUpdateIndex) => {
     // data for submit
@@ -87,7 +88,7 @@ return isModalOpen&&<Container className={styles.modalctnr}>
     <button className={styles.postbtn} onClick = {()=>{
       const postimage = images?images[0].data_url:'';
       const newPost = {
-        userid:"613f5757976e93d14ff39160",
+        userid:adminUserDetails.userid,
         caption:caption,
         postimg:postimage,
         liked : []

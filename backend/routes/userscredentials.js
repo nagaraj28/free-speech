@@ -16,6 +16,35 @@ router.route('/').get((req, res) => {
     .catch(err => res.status(400).json('Error: ' + err));
 });
 
+router.route('/verifycredentials').post((req,res)=>{
+      const email = req.body.email;
+      const password = req.body.password;
+      usersCredentials.findOne({email:email,password:password},(error,user)=>{
+        //console.log(user._id);
+        if(error)
+        console.log(error)
+        else{
+          console.log(user._id);
+          const userid=user._id;
+          res.send(userid);
+        }
+})
+}
+   /*   const userExists = usersCredentials.exists({email:email},(err,exists)=>{
+        if(exists){
+          usersCredentials.findOne({email:email,password:password},(error,user)=>{
+                  //console.log(user._id);
+                  res.send(user._id);
+          })
+        }
+        else if(exists===false)
+        res.send(err);
+        else 
+        res.send(err);
+      });
+      */
+
+);
 
 //creating user or registering user
 router.route('/add').post((req, res) => {

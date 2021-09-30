@@ -28,7 +28,7 @@ async(userid)=>{
 });
 
 export const loadUserPosts  = createAsyncThunk('user/userposts/userid',
-async(userid="613f5757976e93d14ff39160")=>{
+async(userid)=>{
     try{
       const {data} =   await axios.get(`http://localhost:5000/user/userposts/${userid}`);
       return data;
@@ -76,6 +76,7 @@ const userProfileSlice = createSlice({
         loadingFollowing:true,
         loadingFollowers:true
     },
+  
     extraReducers:{
         [loadUserProfile.pending]:(state)=>{
             state.loadingProfile = true;

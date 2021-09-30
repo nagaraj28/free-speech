@@ -1,0 +1,13 @@
+.loginctnr{
+  
+    margin-left: auto;
+    margin-right: auto;
+    border:2px solid red;
+    max-width: 400px;
+    align-items: center;
+    
+}
+.emailbox,.passwordbox{
+display: block !important;
+margin-top: 25px !important;
+}

@@ -16,22 +16,23 @@ import { DeleteSharp } from "@material-ui/icons";
 import { Box } from "@material-ui/core";
 import Image from "../../assets/image9.jpg";
 import {loadLikePost,loadremoveLikeFromPost,loaddeletepost} from "./cardSlice";
+import {useAuthenticationDetails} from "../authentication/authenticationSlice";
 
 export default function CardData({post,place,avatar,username}){
         const dispatch = useDispatch();
         const [isLiked,setIsLiked] = useState(false);
         const [isPostDeleted,setIsPostDeleted] = useState(false);
         const [totalLikes,setTotalLikes] = useState(post.likes);
-       
+        const {loggeduserid} = useAuthenticationDetails();
         useEffect(()=>{
             setIsLiked(()=>{
-                const userid="613f5757976e93d14ff39160";
-              return totalLikes.includes(userid);
+              return totalLikes.includes(loggeduserid);
             })
         },[])
         // console.log({avatar,username});
-    return <Card className={styles.postctnr+" "+(isPostDeleted&&styles.postctnrfadeout)}>
-        
+
+
+    return <Card className={styles.postctnr+" "+(isPostDeleted&&styles.postctnrfadeout)}>        
     <CardContent>
           <IconButton aria-label="settings">
         { (avatar&&avatar.length>0)?<Avatar  alt="side profile image" src={avatar}/>:<AccountCircleSharpIcon/>}
@@ -57,42 +58,36 @@ export default function CardData({post,place,avatar,username}){
             {isPostDeleted&&<Typography className={styles.postdeletetxt} compnent="span">post deleted...</Typography>}
       {!isPostDeleted&&<CardActions className={styles.cardbtns} >
       {!isLiked?<FavoriteBorderSharpIcon   style={{fontSize:"30px"}}  onClick={()=>{
-        const userid="613f5757976e93d14ff39160"
         const currentPost = {
           postid:post._id,
-          userid:userid
+          userid:loggeduserid
         }
-        console.log(currentPost);
+          console.log(currentPost);
           dispatch(loadLikePost(currentPost));
-         setIsLiked(true);
-         setTotalLikes(()=>{
-            
-             let likes=[];
-             if(totalLikes.length===0)
-              likes= [userid];
-              else
-              {
-                  likes = [totalLikes,userid];
-              }
-              //console.log(likes);
-             return likes;
-         })
-      }}
-       />:<FavoriteIcon label="Disabled" style={{color:"#EF4444",fontSize:"30px"}} onClick = {()=>{
-           const userid="613f5757976e93d14ff39160";
+          setIsLiked(true);
+          setTotalLikes(()=>{
+          if(totalLikes.length===0){
+          const likes= [loggeduserid];
+          return likes;
+          }else{
+          const likes = [...totalLikes,loggeduserid];
+          return likes;
+          }})
+      }}/>:<FavoriteIcon label="Disabled" style={{color:"#EF4444",fontSize:"30px"}} onClick = {()=>{
+        
            const currentPost = {
             postid:post._id,
-            userid:userid
+            userid:loggeduserid
           }
            setIsLiked(false);
            console.log(currentPost);           
            dispatch(loadremoveLikeFromPost(currentPost));
            setTotalLikes(()=>{
-            const likes = totalLikes.filter(user=>user!==userid);
+            const likes = totalLikes.filter(user=>user!==loggeduserid);
             return likes;
         })
        }}  />}
-       {(place!=="home")&&<DeleteSharp style={{color:"#991B1B",fontSize:"30px"}} onClick={()=>{
+       {(place!=="home"&&post.userid===loggeduserid)&&<DeleteSharp style={{color:"#991B1B",fontSize:"30px"}} onClick={()=>{
          dispatch(loaddeletepost(post._id));
          setIsPostDeleted(true);
        }} />}

@@ -17,27 +17,32 @@ import {loadUserProfile,loadUserPosts,useUserProfileDetails} from "../userProfil
 import CardData from "./cardPost";
 import {useParams} from "react-router-dom";
 import { loadingusersprofile } from "./cardSlice";
+import { loaduserDetails } from "../authentication/authenticationSlice";
+import { useAuthenticationDetails } from "../authentication/authenticationSlice";
+
  
 
 export default function PostCard(){
-  const dispatch = useDispatch();
-  const {username} = useParams();
-  const {
-    loadingProfile,userDetails,loadingPosts,userPosts
-} = useUserProfileDetails(); 
-    useEffect(()=>{
+    const dispatch = useDispatch();
+    const {username} = useParams();
+    const {loadingProfile,userDetails,loadingPosts,userPosts} = useUserProfileDetails(); 
+    const {loggeduserid}=useAuthenticationDetails();
+   useEffect(()=>{
         console.log("from post component " ,username)
-        dispatch(loadingusersprofile());
-      //  dispatch(loadUserProfile()); uncomment after authentication in order to get userName
-        dispatch(loadUserPosts());
-    },[username])
+      //  dispatch(loadingusersprofile());
+     //   dispatch(loadUserProfile(username))
+    //    dispatch(loaduserDetails(username));
+        if(userDetails&&userDetails.username)
+        dispatch(loadUserPosts(userDetails.userid)); 
+      //  dispatch(loaduserDetails(loggeduserid))
+   },[/*username*/userDetails])
     
 
- //   let likes =[];
-   //  likes = posts&&posts.likes;
-    
+   // if(userDetails&&userDetails.username)
+  //  );
+      
   return <Box className={styles.postsctnr} style={{overflowY:"unset"}}> 
-       {   userPosts&&userPosts.map(post=>{
+       {userDetails&&userPosts&&userPosts.length>0&&userPosts.map(post=>{
         //  const [{avatar,username}] = usersProfile.filter(user =>(user.userid===post.userid));
              return <CardData post={post} place={"profilepage"} avatar={userDetails.avatar} username={userDetails.username} />
        })

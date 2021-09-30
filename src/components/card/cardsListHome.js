@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import {useDispatch,useSelector} from "react-redux";
+import {useDispatch} from "react-redux";
 import AccountCircleSharpIcon from '@material-ui/icons/AccountCircleSharp';
 import Typography from '@material-ui/core/Typography';
 import Card from '@material-ui/core/Card';
@@ -15,22 +15,26 @@ import { Box } from "@material-ui/core";
 import Image from "../../assets/image9.jpg";
 import {fetchPosts,usePosts,loadingusersprofile} from "./cardSlice";
 import CardData from "./cardPost";
+import { useAuthenticationDetails } from "../authentication/authenticationSlice";
+import { loaduserDetails } from "../authentication/authenticationSlice";
 
 
 export default function PostCard(){
-  const dispatch = useDispatch();
-
+       const dispatch = useDispatch();
+      const {loggeduserid} = useAuthenticationDetails();
+      console.log(loggeduserid);
     useEffect(()=>{
-        dispatch(fetchPosts('613f5757976e93d14ff39160'));
+        dispatch(fetchPosts(loggeduserid));
         dispatch(loadingusersprofile());
+        dispatch(loaduserDetails(loggeduserid));
     },[])
     const {loading,posts,usersProfile} =usePosts();
     console.log(loading,posts);
  //   let likes =[];
    //  likes = posts&&posts.likes;
-    
+
   return <Box className={styles.postsctnr}> 
-       {   posts&&usersProfile.length>0&&posts.map(post=>{
+       {posts&&usersProfile.length>0&&posts.map(post=>{
           const [{avatar,username}] = usersProfile.filter(user =>(user.userid===post.userid));
              return <CardData post={post} place={"home"} avatar={avatar} username={username} />
        })

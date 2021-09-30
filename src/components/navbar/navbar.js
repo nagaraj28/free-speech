@@ -15,16 +15,24 @@ import {usePosts} from "../card/cardSlice"
 import SearchContainer from "./searchContainer";
 import ProfileMiniCard from "../profileminicard/profileminicard";
 import  {useUserProfileDetails} from "../userProfile/userProfileSlice"
+import  {loaduserDetails} from "../authentication/authenticationSlice";
+import {useAuthenticationDetails} from "../authentication/authenticationSlice";
 export default function NavBar(){
  
   const dispatch = useDispatch();
   const [searchedProfiles,setSearchedProfiles] = useState([]);
   const {usersProfile} = usePosts();
+  const {loggeduserid,adminUserDetails} = useAuthenticationDetails();
+  useEffect(()=>{
+    dispatch(loaduserDetails(loggeduserid));
+  },[loggeduserid])
   console.log(usersProfile);
+ 
    // console.log(searchedProfiles);
   return <Box className={styles.navctnr}>
       <Typography component="div">
-          FreeSpeech 
+           
+          <Link to="/">FreeSpeech</Link>
       </Typography>
       <Box component="div"> 
          <input type="search" placeholder="search-box" onChange={(e)=>{
@@ -36,7 +44,7 @@ export default function NavBar(){
           <AddBoxSharpIcon  onClick={()=>dispatch(uploadModalToggle())}/>
           <HomeSharpIcon/>
           <NotificationsSharpIcon/>
-          <Link to={`/profile/nag2`}>
+          <Link to={`/profile/${adminUserDetails.username}`}>
           <AccountCircleSharpIcon onClick={()=>{}}/>
           </Link>
      </Typography>

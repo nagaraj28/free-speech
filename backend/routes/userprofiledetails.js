@@ -1,5 +1,7 @@
 const router = require('express').Router();
 const userProfileDetails = require('../models/userprofiledetails.model');
+const mongoose = require('mongoose');
+const Schema =  mongoose.Schema;
 
 
 /*
@@ -13,7 +15,26 @@ router.route('/').get((req,res)=>{
 });
 
 /*
-get user details
+get user details by userid
+*/
+router.route('/byuserid/:userid').get((req,res)=>{
+  //const userid = req.body.userid;
+ /// let userid;
+ console.log("hello",req.params.userid)
+ userProfileDetails.findOne({userid:req.params.userid}).then((err,user)=>{
+  //  console.log(req.params.id);
+  if(!err)
+    res.send(user);
+    else
+    res.send(err);
+          // console.log("error",err);
+   //  console.log("user",user);
+    // res.send(user);
+      });
+});
+
+/*
+get user details by username
 */
 router.route('/:username').get((req,res)=>{
     //const userid = req.body.userid;
@@ -29,6 +50,26 @@ router.route('/:username').get((req,res)=>{
       // res.send(user);
         });
 });
+
+/*
+get user details by userid
+*/
+router.route('/:userid').get((req,res)=>{
+  //const userid = req.body.userid;
+ /// let userid;
+ console.log("hello",req.params.userid)
+ userProfileDetails.findOne({userid:req.params.userid}).then((err,user)=>{
+  //  console.log(req.params.id);
+  if(!err)
+    res.send(user);
+    else
+    res.send(err);
+          // console.log("error",err);
+   //  console.log("user",user);
+    // res.send(user);
+      });
+});
+
 
 /*
 update user profile details
@@ -118,10 +159,10 @@ fetch following  userDetails list
 router.route('/following/:userid').get((req,res)=>{
   userProfileDetails.findOne({userid:req.params.userid},(err,user)=>{
       if(!err){
-        console.log(user.following);
+      //  console.log(user.following);
         userProfileDetails.find({
           userid:{
-              $in:[user.following]
+              $in:user.following
           }
          },(err,alltheposts)=>{
            console.log(err);
@@ -143,7 +184,7 @@ router.route('/followers/:userid').get((req,res)=>{
       if(!err){
         userProfileDetails.find({
           'userid':{
-              $in:[user.followers]
+              $in:user.followers
           }
          },(err,alltheposts)=>{
           res.send(alltheposts);

@@ -7,19 +7,30 @@ get posts with given id's
 
 **/
 
-router.route('/posts/:id').get((req,res)=>{
-        userProfileDetails.findOne({userid:req.params.id},(err,user)=>{
+router.route('/posts/:userid').get((req,res)=>{
+   // console.log(req.params.userid);
+   try{
+        userProfileDetails.findOne({userid:req.params.userid},(err,user)=>{
             if(!err){
                posts.find({
                 'userid':{
-                    $in:[user.following,req.params.id]
+                    $in:[...user.following,req.params.userid]
                 }
                },(err,alltheposts)=>{
+                   if(!err)
                 res.send(alltheposts);
+              //  else
+            //    console.log(err);
             }
                )
             }
+            else
+            throw err;
         })
+    }
+    catch(err){
+        console.log(err);
+    }
 })
 
 
