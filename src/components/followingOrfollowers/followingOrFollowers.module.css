@@ -1,5 +1,5 @@
 .followingfollowersctnr{
-    position: absolute !important;
+    position: fixed !important;
     max-width: 400px !important;
     background-color: red !important;
     top: 15%;
@@ -13,7 +13,7 @@
     height: 70vh;
 }
 
-.followersctnr,followingctnr{
+.followersctnr,.followingctnr{
     overflow-y: scroll;
 }
 .headerctnr{

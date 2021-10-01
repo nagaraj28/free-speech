@@ -9,6 +9,10 @@ import {useParams} from "react-router";
 import { followingToggle,followersToggle, addFollowing, unFollow} from "../followingOrfollowers/followingOrfollowersSlice";
 import {useAuthenticationDetails} from "../authentication/authenticationSlice";
 import {loaduserDetails} from "../authentication/authenticationSlice"
+import IconButton from '@material-ui/core/IconButton';
+import AccountCircleSharpIcon from '@material-ui/icons/AccountCircleSharp';
+
+
 
 export default function UserProfile(){
 
@@ -44,7 +48,9 @@ export default function UserProfile(){
            // const [isFollowing,setIsFollowing] = useState((adminUserDetails&&adminUserDetails.following&&userDetails&&userid&&adminUserDetails.following.includes(userid))?true:false);
             return (adminUserDetails&&adminUserDetails.following&&userDetails&&<Box className={styles.userprofileparent}>
             <Box>
-                 <Avatar  className={styles.userprofileavatar} alt="user profile image" src={profileImage}/>
+                 {(avatar&&avatar.length>0)?<Avatar  className={styles.userprofileavatar} alt="user profile image" src={avatar}/>:
+                 <AccountCircleSharpIcon className={styles.userprofileavatar}/>
+}
                 </Box>
                 <Box>
                     <Container  className={styles.userprofilechildone}>
@@ -73,10 +79,10 @@ export default function UserProfile(){
                     <Container  className={styles.userprofilechildtwo}>
                     <Typography  p> {userPosts&&userPosts.length} posts </Typography >
                     <Typography   onClick={()=>{
-                            dispatch(followersToggle())
+                            dispatch(followersToggle(true))
                     }} p> {followers&&followers.length} followers </Typography >
                     <Typography onClick={()=>{
-                            dispatch(followingToggle())
+                            dispatch(followingToggle(true))
                     }}  p> {following&&following.length} following </Typography>
                     </Container>
                     <Container  className={styles.userprofilechildtwo}>

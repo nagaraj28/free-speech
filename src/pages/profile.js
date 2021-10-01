@@ -6,6 +6,7 @@ import CardListProfile from "../components/card/cardsListProfile";
 import FollowingOrFollowers from "../components/followingOrfollowers/followingOrfollowers";
 import { useDispatch } from "react-redux";
 import {loggeduserid,useAuthenticationDetails,loaduserDetails } from "../components/authentication/authenticationSlice";
+import LikesModal from "../components/card/likesModal";
 
 
 export default function Profile(){  
@@ -19,8 +20,8 @@ export default function Profile(){
     <UploadModal/>
     <UserProfile/>
     <FollowingOrFollowers/>
+    <LikesModal/>        
     <CardListProfile/>
-
 
   {/*  
 

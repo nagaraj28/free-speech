@@ -38,14 +38,14 @@ export default function NavBar(){
          <input type="search" placeholder="search-box" onChange={(e)=>{
            setSearchedProfiles(findUsers(usersProfile,e.target.value));
          }} />  
-         <SearchContainer searchedprofiles={searchedProfiles}/>
+         <SearchContainer searchedprofiles={searchedProfiles} />
       </Box>
       <Typography component="div">
           <AddBoxSharpIcon  onClick={()=>dispatch(uploadModalToggle())}/>
           <HomeSharpIcon/>
           <NotificationsSharpIcon/>
           <Link to={`/profile/${adminUserDetails.username}`}>
-          <AccountCircleSharpIcon onClick={()=>{}}/>
+          <AccountCircleSharpIcon />
           </Link>
      </Typography>
   </Box>

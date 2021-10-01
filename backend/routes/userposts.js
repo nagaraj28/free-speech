@@ -130,5 +130,26 @@ router.route('/removepostlike').post((req,res)=>{
     })
 });
 
+/*
+liked people details
+*/
+router.route('/postlikes/:postid').get((req,res)=>{
+    const postid =req.params.postid;
+    try{
+    posts.findOne({'_id':postid},(err,post)=>{
+        userProfileDetails.find({
+            userid:{
+                $in:post.likes
+            }
+           },(err,allusersDetails)=>{
+             console.log(err);
+           //  console.log(alltheposts);
+            res.send(allusersDetails);
+        })
+    })
+}catch(err){
+    res.send(err);
+}
+});
 
 module.exports =router;

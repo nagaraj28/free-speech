@@ -15,8 +15,9 @@ import styles from "./card.module.css";
 import { DeleteSharp } from "@material-ui/icons";
 import { Box } from "@material-ui/core";
 import Image from "../../assets/image9.jpg";
-import {loadLikePost,loadremoveLikeFromPost,loaddeletepost} from "./cardSlice";
+import {loadLikePost,loadremoveLikeFromPost,loaddeletepost, loadPostLikedDetails,likeModalToggleUtil} from "./cardSlice";
 import {useAuthenticationDetails} from "../authentication/authenticationSlice";
+import {Link} from "react-router-dom";
 
 export default function CardData({post,place,avatar,username}){
         const dispatch = useDispatch();
@@ -34,12 +35,14 @@ export default function CardData({post,place,avatar,username}){
 
     return <Card className={styles.postctnr+" "+(isPostDeleted&&styles.postctnrfadeout)}>        
     <CardContent>
+          <Link to={`/profile/${username}`}>
           <IconButton aria-label="settings">
         { (avatar&&avatar.length>0)?<Avatar  alt="side profile image" src={avatar}/>:<AccountCircleSharpIcon/>}
       </IconButton>
          <Typography component="span" >
         {username}
       </Typography>
+      </Link>
       </CardContent>
     {/*  <img  className="responsive-img" src={Image} /> */}
     <CardContent>
@@ -93,7 +96,11 @@ export default function CardData({post,place,avatar,username}){
        }} />}
       </CardActions> 
 }
-      {(totalLikes&&totalLikes.length>0)?<Typography variant="body2" color="textSecondary" component="a"> {!(isPostDeleted)&&`${totalLikes.length} likes`}</Typography>:<Typography variant="body2" color="textSecondary" component="a">
+      {(totalLikes&&totalLikes.length>0)?<Typography variant="body2" color="textSecondary" component="a" onClick={()=>{
+        dispatch(loadPostLikedDetails(post._id));
+        dispatch(likeModalToggleUtil(true))
+
+      }}> {!(isPostDeleted)&&`${totalLikes.length} likes`}</Typography>:<Typography variant="body2" color="textSecondary" component="a">
         {!isPostDeleted&&"Be the first one to like."}
         </Typography>
        }

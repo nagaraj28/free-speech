@@ -5,7 +5,7 @@ import Box from '@material-ui/core/Box';
 import Container from '@material-ui/core/Container';
 import ProfileFeedSideCard from "../components/profilefeedsidecard/profilefeedsidecard";
 import UploadModal from "../components/uploadmodal/uploadmodal";
-
+import LikesModal from "../components/card/likesModal";
 export default function Home(){
 
 
@@ -14,5 +14,6 @@ export default function Home(){
         <PostCard/>
         <ProfileFeedSideCard/>
         <UploadModal/>
+        <LikesModal/>        
         </>);
 }

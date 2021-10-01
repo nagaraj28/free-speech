@@ -96,6 +96,20 @@ async ()=>{
     }
 })
 
+/*
+fetch post liked people details
+*/
+export const loadPostLikedDetails = createAsyncThunk('postlikes/postid',
+
+async (postid)=>{
+    try{
+        const {data} = await axios.get(`http://localhost:5000/user/postlikes/${postid}`);
+        return data;
+    }catch(error){
+        console.log("error fetching post liked users details ",error);
+    }
+})
+
 
  const cardSlice = createSlice({
     name:'posts',
@@ -104,6 +118,15 @@ async ()=>{
         loading:true,
         loadingUsers:true,
         usersProfile:[],
+        likeModalToggle:false,
+        postlikes:[],
+        loadinglikesDetails:true,
+        loadinglikesDetailsError:''
+    },
+    reducers:{
+            likeModalToggleUtil:(state,action)=>{
+                state.likeModalToggle=action.payload;
+            }
     },
     extraReducers:{
     [fetchPosts.pending]:(state)=>{
@@ -154,9 +177,21 @@ async ()=>{
     },
     [loaddeletepost.fulfilled]:(state,action)=>{
        console.log("post delete success");
-    }
+    },
+    [loadPostLikedDetails.pending]:(state)=>{
+        state.loadinglikesDetails=true;
+    },
+    [loadPostLikedDetails.fulfilled]:(state,action)=>{
+        state.loadinglikesDetails = false;
+        state.postlikes=action.payload;
+    },
+    [loadPostLikedDetails.rejected]:(state,action)=>{
+        state.loadinglikesDetails = false;
+        state.loadinglikesDetailsError=action.payload;
+    },
     }
 });
 
 export default  cardSlice.reducer;
+export const {likeModalToggleUtil} = cardSlice.actions;
 export const usePosts =()=>useSelector((state)=>state.posts);

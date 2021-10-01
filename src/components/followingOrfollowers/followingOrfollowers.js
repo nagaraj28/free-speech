@@ -22,7 +22,7 @@ export default function FollowingOrFollowers() {
     console.log(userFollowers,userFollowing);
     return  <>{(showFollowersDialog||showFollowingDialog)&&<Box className={styles.followingfollowersctnr}>
                 {showFollowingDialog&&(<Box  className={styles.headerctnr}><Typography>following</Typography><ClearSharpIcon onClick={()=>{
-                    dispatch(followingToggle());
+                    dispatch(followingToggle(false));
                 }}
                 /></Box>)}
                 {<Box className={styles.followingctnr} onClick={()=>{
@@ -36,7 +36,7 @@ export default function FollowingOrFollowers() {
                 </Box>
 }
                     {showFollowersDialog&&(<Box className={styles.headerctnr}><Typography >followers</Typography><ClearSharpIcon onClick={()=>{
-                    dispatch(followersToggle());
+                    dispatch(followersToggle(false));
                 }}
 /></Box>)}
                { <Box  className={styles.followersctnr} onClick={()=>{

@@ -33,11 +33,11 @@ const  followingfollowersSlice = createSlice({
 
     },
     reducers:{
-            followingToggle:(state)=>{
-                state.showFollowingDialog = !(state.showFollowingDialog);
+            followingToggle:(state,action)=>{
+                state.showFollowingDialog = action.payload;
             },
-            followersToggle:(state)=>{
-                state.showFollowersDialog = !(state.showFollowersDialog);
+            followersToggle:(state,action)=>{
+                state.showFollowersDialog = action.payload;
             }
     }
 }
