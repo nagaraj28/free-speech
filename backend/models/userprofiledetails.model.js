@@ -36,14 +36,17 @@ const userProfileDetailsSchema = new Schema(
         followers:[{
             type:Schema.Types.ObjectId,
             ref:'usersCredentials',
-            unique:true
+            unique:true,
+            timestamps:true
         }
     ],
     following:
         [{
             type:Schema.Types.ObjectId,
             ref:'usersCredentials',
-            unique:true
+            unique:true,
+            timestamps:true
+
         }
     ],
     }

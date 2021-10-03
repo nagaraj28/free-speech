@@ -27,3 +27,7 @@
 
     background-color: rgb(233, 233, 245) !important;
 }
+.notifyminitext{
+    display: block;
+    font-size: 13px;
+}

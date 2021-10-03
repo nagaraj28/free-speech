@@ -6,6 +6,9 @@ import { loadingUserFollowers, loadingUserFollowing, useUserProfileDetails} from
 import { useFollowingFollowers,followingToggle,followersToggle } from "./followingOrfollowersSlice";
 import ClearSharpIcon from '@material-ui/icons/ClearSharp';
 import { useDispatch } from "react-redux";
+import Following from "./following";
+import Followers from "./followers";
+
 
 
 export default function FollowingOrFollowers() {    
@@ -24,31 +27,13 @@ export default function FollowingOrFollowers() {
                 {showFollowingDialog&&(<Box  className={styles.headerctnr}><Typography>following</Typography><ClearSharpIcon onClick={()=>{
                     dispatch(followingToggle(false));
                 }}
-                /></Box>)}
-                {<Box className={styles.followingctnr} onClick={()=>{
-                   // dispatch(followingToggle());
-                }}>
-               {
-                (showFollowingDialog&&userFollowing.length>0&&loadingFollowing===false)?userFollowing.map((profile)=>{
-                  return  <ProfileMiniCard profile={profile} page="profile" />
-                }):(showFollowingDialog&&loadingFollowing===false&&userFollowing.length===0)?<Typography  className={styles.nofollow} p>{(loadingFollowing===false)&&"not following anyone"}</Typography>:""
-                }
-                </Box>
-}
+                /></Box>)   } 
+                {                 <Following/>  }
                     {showFollowersDialog&&(<Box className={styles.headerctnr}><Typography >followers</Typography><ClearSharpIcon onClick={()=>{
                     dispatch(followersToggle(false));
                 }}
 /></Box>)}
-               { <Box  className={styles.followersctnr} onClick={()=>{
-                  //  dispatch(followersToggle());
-                }}>
-               {
-                 (loadingFollowers===false&&showFollowersDialog&&userFollowers.length>0)?userFollowers.map((profile)=>{
-                  return  <ProfileMiniCard profile={profile} page="profile" />
-                }):(showFollowersDialog&&loadingFollowers===false&&userFollowers.length===0)?<Typography className={styles.nofollow} p>{(loadingFollowers===false&&userFollowers.length===0)?"no followers yet":""}</Typography>:""
-                }
-                </Box>
-}
+               {<Followers/>}
              </Box>
 }
     </>

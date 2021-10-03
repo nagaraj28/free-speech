@@ -18,3 +18,29 @@
     max-height: 60vh;
     border-radius: 10px;
 }
+.notificationctnr{
+    position: absolute !important;
+    right: 0%;
+    width: 350px !important;
+    z-index: 10 !important;
+    border: 2px solid #000;
+    background-color: #fff;
+    border-radius: 10px;
+    margin-top: 5px;
+    overflow-y: scroll;
+    max-height: 50vh;
+}
+
+.notisubctnr{
+    margin-top: 32px;
+}
+
+.notifycancel{
+    cursor: pointer;
+}
+@media screen and (max-width:500px) {
+    .notificationctnr{
+        width: 100% !important;
+        height:100vh !important;
+    }
+}

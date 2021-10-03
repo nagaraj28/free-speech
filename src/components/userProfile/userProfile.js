@@ -74,7 +74,7 @@ export default function UserProfile(){
 
                     }}>Follow</Button>
                     }
-                    <ExitToApp/>
+                    {adminUserDetails.userid===userid&&<ExitToApp/>}
                     </Container>
                     <Container  className={styles.userprofilechildtwo}>
                     <Typography  p> {userPosts&&userPosts.length} posts </Typography >

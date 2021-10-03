@@ -17,12 +17,18 @@ import ProfileMiniCard from "../profileminicard/profileminicard";
 import  {useUserProfileDetails} from "../userProfile/userProfileSlice"
 import  {loaduserDetails} from "../authentication/authenticationSlice";
 import {useAuthenticationDetails} from "../authentication/authenticationSlice";
+import NotificationContainer from "./notificationContainer";
+import {notificationModalUtil,useNotificationModal} from "./notificationSlice";
+
+
 export default function NavBar(){
  
   const dispatch = useDispatch();
   const [searchedProfiles,setSearchedProfiles] = useState([]);
   const {usersProfile} = usePosts();
   const {loggeduserid,adminUserDetails} = useAuthenticationDetails();
+  const  {isNotification} = useNotificationModal();
+
   useEffect(()=>{
     dispatch(loaduserDetails(loggeduserid));
   },[loggeduserid])
@@ -31,7 +37,6 @@ export default function NavBar(){
    // console.log(searchedProfiles);
   return <Box className={styles.navctnr}>
       <Typography component="div">
-           
           <Link to="/">FreeSpeech</Link>
       </Typography>
       <Box component="div"> 
@@ -42,8 +47,14 @@ export default function NavBar(){
       </Box>
       <Typography component="div">
           <AddBoxSharpIcon  onClick={()=>dispatch(uploadModalToggle())}/>
+          <Link to="/">
           <HomeSharpIcon/>
-          <NotificationsSharpIcon/>
+          </Link>
+          <NotificationsSharpIcon onClick={()=>{
+                                dispatch(notificationModalUtil(!isNotification));
+          }}
+          />
+          <NotificationContainer/>
           <Link to={`/profile/${adminUserDetails.username}`}>
           <AccountCircleSharpIcon />
           </Link>

@@ -157,41 +157,78 @@ fetch following  userDetails list
 */
 
 router.route('/following/:userid').get((req,res)=>{
+  try{
   userProfileDetails.findOne({userid:req.params.userid},(err,user)=>{
       if(!err){
       //  console.log(user.following);
+     // const followingData = user.following;
+     // console.log(followingData);
+      
+      const followingTimes =  user.following.map(eachFollowing => {
+         return eachFollowing.getTimestamp();
+      });
+      console.log(followingTimes);
         userProfileDetails.find({
           userid:{
               $in:user.following
-          }
-         },(err,alltheposts)=>{
-           console.log(err);
+          } 
+         },(err,alltheusers)=>{
+           if(err)
+           throw err;
          //  console.log(alltheposts);
-          res.send(alltheposts);
+          res.send({
+            followingData:alltheusers,
+            timesArray:followingTimes
+          });
       }
          )
       }
+      else
+      throw err;
   })
+}catch(err){
+  console.log(err);
+}
 })
 
 /*
-fetch following  userDetails list
+fetch followers  userDetails list
 
 */
 
 router.route('/followers/:userid').get((req,res)=>{
+  try{
   userProfileDetails.findOne({userid:req.params.userid},(err,user)=>{
       if(!err){
+      //  console.log(user.following);
+     // const followingData = user.following;
+     // console.log(followingData);
+      
+      const followersTimes =  user.followers.map(eachFollowing => {
+         return eachFollowing.getTimestamp();
+      });
+      console.log(followersTimes);
         userProfileDetails.find({
-          'userid':{
+          userid:{
               $in:user.followers
-          }
-         },(err,alltheposts)=>{
-          res.send(alltheposts);
+          } 
+         },(err,alltheusers)=>{
+           if(err)
+           throw err;
+         //  console.log(alltheposts);
+          res.send({
+            followersData:alltheusers,
+            timesArray:followersTimes
+          });
       }
          )
       }
+      else
+      throw err;
   })
+}catch(err){
+  console.log(err);
+}
 })
 
 

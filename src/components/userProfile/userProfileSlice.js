@@ -71,8 +71,8 @@ const userProfileSlice = createSlice({
         userDetails:{},
         loadingPosts:true,
         userPosts:[],
-        userFollowing:[],
-        userFollowers:[],
+        userFollowing:{},
+        userFollowers:{},
         loadingFollowing:true,
         loadingFollowers:true
     },
