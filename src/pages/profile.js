@@ -22,9 +22,5 @@ export default function Profile(){
     <FollowingOrFollowers/>
     <LikesModal/>        
     <CardListProfile/>
-
-  {/*  
-
-  */ }
     </>
 }

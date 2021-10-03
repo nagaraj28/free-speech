@@ -8,6 +8,7 @@ import LoginForm from './components/authentication/login/loginform';
 import ProtectedRoutes from './components/protectedroutes/protectedroutes';
 import { useEffect } from 'react';
 import {useDispatch} from "react-redux";
+import ProfileUpdate from './pages/profileupdate';
 
 
 function App() {
@@ -29,9 +30,12 @@ function App() {
     component = {
       Home
     } />
+        <ProtectedRoutes exact path="/profile/update"
+      component={ProfileUpdate} />
       <ProtectedRoutes exact path="/profile/:username"
       component={Profile} />
-  
+   
+      
     </Switch>
   );
 }

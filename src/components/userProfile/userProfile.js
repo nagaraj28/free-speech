@@ -11,6 +11,7 @@ import {useAuthenticationDetails} from "../authentication/authenticationSlice";
 import {loaduserDetails} from "../authentication/authenticationSlice"
 import IconButton from '@material-ui/core/IconButton';
 import AccountCircleSharpIcon from '@material-ui/icons/AccountCircleSharp';
+import {Link} from "react-router-dom";
 
 
 
@@ -56,7 +57,7 @@ export default function UserProfile(){
                     <Container  className={styles.userprofilechildone}>
                     <Typography   p>{userDetails.username}</Typography >
                     {
-                    (adminUserDetails.userid===userid)?<Button className={styles.editprofilebtn}>edit profile</Button>:adminUserDetails.following.includes(userid)?
+                    (adminUserDetails.userid===userid)?<Link to={`/profile/update`} ><Button className={styles.editprofilebtn}>edit profile</Button></Link>:adminUserDetails.following.includes(userid)?
                     <Button className={styles.editprofilebtn} onClick={()=>{
                         dispatch(unFollow(details))
                        // setIsFollowing(true);
