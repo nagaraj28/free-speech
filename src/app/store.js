@@ -4,7 +4,9 @@ import uploadModalReducer from "../components/uploadmodal/uploadModalSlice";
 import userProfileReducer from "../components/userProfile/userProfileSlice";
 import followingFollowerReducer from "../components/followingOrfollowers/followingOrfollowersSlice";
 import authenticationDetailsReducer from "../components/authentication/authenticationSlice";
-import NotificationReducer from "../components/navbar/notificationSlice";
+import notificationReducer from "../components/navbar/notificationSlice";
+import updatedProfileDetailsReducer from "../components/profileedit/profileEditSlice";
+
 
 export default configureStore({
     reducer:{
@@ -13,7 +15,8 @@ export default configureStore({
         userProfileDetails:userProfileReducer,
         followingfollowers:followingFollowerReducer,
         authenticationDetails:authenticationDetailsReducer,
-        notificationModal:NotificationReducer,
+        notificationModal:notificationReducer,
+        updatedProfileDetails:updatedProfileDetailsReducer,
         
     }
 });

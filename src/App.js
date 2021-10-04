@@ -5,6 +5,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { Switch,
   Route,} from  "react-router-dom";
 import LoginForm from './components/authentication/login/loginform';
+import SignUpForm from "./components/authentication/login/signupform"
 import ProtectedRoutes from './components/protectedroutes/protectedroutes';
 import { useEffect } from 'react';
 import {useDispatch} from "react-redux";
@@ -16,6 +17,9 @@ function App() {
     <Switch>
        <Route exact path="/login">
       <LoginForm/>
+        </Route>
+        <Route exact path="/signup">
+      <SignUpForm/>
         </Route>
         {/*
         <Route exact path="/">
@@ -33,9 +37,7 @@ function App() {
         <ProtectedRoutes exact path="/profile/update"
       component={ProfileUpdate} />
       <ProtectedRoutes exact path="/profile/:username"
-      component={Profile} />
-   
-      
+      component={Profile} />   
     </Switch>
   );
 }

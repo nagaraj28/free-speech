@@ -25,7 +25,18 @@ import axios from "axios";
             return error;
         }
     }
-    )
+    );
+
+    export  const createAccount  = createAsyncThunk("users/add",
+    async(profileData)=>{
+        try{
+         const {data} =  await axios.post("http://localhost:5000/users/add",profileData);
+         return data;
+    }catch(err){
+        console.log(err);
+    }
+    });
+
 
 const authenticationSlice = createSlice({
     name:'authentication',
@@ -42,30 +53,28 @@ const authenticationSlice = createSlice({
         loadinguserid:true,
         loginError:'',
         loadingLoginDetails:true,
-
+        creatingAccount:''
     },
     reducer:{
         resetUser:(state)=>{
             state.adminUserDetails={};
             state.loggeduserid='';
-            state.loadinguserid=true;
+            state.loadinguserid=false;
             state.loadingLoginDetails=true;
         },
     },
         extraReducers:{
             [validatecredentials.pending]:(state,action)=>{
                     state.loadinguserid=false;
-                    state.loginError=action.payload;
+                    state.loggeduserid="processing";
 
             },
             [validatecredentials.fulfilled]:(state,action)=>{
-                console.log("hello");
                 state.loadinguserid=false;
                 state.loggeduserid = action.payload;
                 loaduserDetails(action.payload);
             },
             [validatecredentials.rejected]:(state)=>{
-                console.log("hello");
                 state.loadinguserid=false;
         },
         [loaduserDetails.fulfilled]:(state,action)=>{
@@ -76,10 +85,20 @@ const authenticationSlice = createSlice({
                 state.loadingLoginDetails=false;
                 console.log("request rejected in loading login details")
         },
-        [loaduserDetails.rejected]:(state)=>{   
+        [loaduserDetails.pending]:(state)=>{   
             state.loadingLoginDetails=true;
-    }
+    },
+     [createAccount.fulfilled]:(state,action)=>{
+         state.creatingAccount=action.payload
+    },
+    [createAccount.rejected]:(state)=>{
+        state.creatingAccount="error occured,please try again";
+            console.log("request rejected in loading login details")
+    },
+    [createAccount.pending]:(state)=>{   
+        state.creatingAccount="creating your account,please wait...";
         }
+    }
 })
 
 export default authenticationSlice.reducer;
