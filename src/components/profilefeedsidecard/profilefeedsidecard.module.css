@@ -3,10 +3,8 @@
         top: 15%;
         right: 10%;
 }
-.sideprofile{
-        display: flex;
-        margin-top: 10px;
-}
+
+
 .sideprofileavatar{  
         width:54px !important;
         height: 54px !important;

@@ -11,11 +11,17 @@
     cursor: pointer;
 }
 .searchprofileavatar{  
-    width:40px !important;
-    height: 40px !important;
+    width:45px !important;
+    height: 45px !important;
     margin-right: 10px !important;
     margin-bottom: 10px !important;
 }       
+.homefeedprofileavatar{
+    width:60px !important;
+    height: 60px !important;
+    margin-right: 10px !important;
+    margin-bottom: 10px !important;
+}
 
 .userutilbtn{
   /*  display: flex !important;
