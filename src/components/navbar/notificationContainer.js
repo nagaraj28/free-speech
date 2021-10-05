@@ -25,7 +25,7 @@ export default function NotificationContainer(){
 
     console.log(userFollowing.followingData)
     return  isNotification&&<Box className={styles.notificationctnr}>
-                <ClearSharpIcon  style={{fontSize:"32px",float:"right"}}  onClick={()=>{
+                <ClearSharpIcon className={styles.notifycancel} style={{fontSize:"32px",float:"right"}}  onClick={()=>{
                     dispatch(notificationModalUtil(false));
                 }}/>
                 {

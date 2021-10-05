@@ -16,8 +16,8 @@ import { useAuthenticationDetails } from "../authentication/authenticationSlice"
 
 export default function UploadModal(){
   const dispatch = useDispatch();
-    const [images, setImages] = useState();
-    const [caption, setCaption] = useState([]);
+    const [images, setImages] = useState([]);
+    let [caption, setCaption] = useState('');
   const {adminUserDetails} = useAuthenticationDetails();
        const {isModalOpen} = useUploadModal();
       // console.log("modal value is" ,isModalOpen)
@@ -27,6 +27,7 @@ export default function UploadModal(){
     console.log(imageList, addUpdateIndex);
     setImages(imageList);
   };
+ // console.log((caption&&caption.length>0)&&(images&&images[0].data_url.length>0));
 return isModalOpen&&<Container className={styles.modalctnr}>
     <Container className={styles.modalcancelbtn} onClick = {()=>{dispatch(uploadModalToggle())}}>
     <ClearSharpIcon style={{fontSize:"32px",float:"right",margin:"10px"}}/>
@@ -96,7 +97,7 @@ return isModalOpen&&<Container className={styles.modalctnr}>
       console.log("new post data",newPost);
       dispatch(uploadPost(newPost))
      dispatch(uploadModalToggle())
-     setImages(null);
-      }}>post</button>
+     setImages([]);
+      }} disabled={!(caption.length>0 ||(!images?false:images.length>0?true:false))}>post</button>
         </Container>
 }

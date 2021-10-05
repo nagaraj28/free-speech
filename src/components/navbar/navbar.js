@@ -19,6 +19,7 @@ import  {loaduserDetails} from "../authentication/authenticationSlice";
 import {useAuthenticationDetails} from "../authentication/authenticationSlice";
 import NotificationContainer from "./notificationContainer";
 import {notificationModalUtil,useNotificationModal} from "./notificationSlice";
+import {TextField} from "@material-ui/core";
 
 
 export default function NavBar(){
@@ -35,30 +36,42 @@ export default function NavBar(){
   console.log(usersProfile);
  
    // console.log(searchedProfiles);
-  return <Box className={styles.navctnr}>
+  return <Box><Box className={styles.navctnr}>
       <Typography component="div">
-          <Link to="/">FreeSpeech</Link>
+          <Link style={{textDecoration:"none"}} to="/"><span className={styles.brandlogo}>FreeSpeech</span></Link>
       </Typography>
       <Box component="div"> 
-         <input type="search" placeholder="search-box" onChange={(e)=>{
+         <input className={styles.searchbox} type="search" placeholder="type to search..." onChange={(e)=>{
            setSearchedProfiles(findUsers(usersProfile,e.target.value));
          }} />  
          <SearchContainer searchedprofiles={searchedProfiles} />
       </Box>
       <Typography component="div">
-          <AddBoxSharpIcon  onClick={()=>dispatch(uploadModalToggle())}/>
-          <Link to="/">
-          <HomeSharpIcon/>
+          <AddBoxSharpIcon className={styles.desktopnav} onClick={()=>dispatch(uploadModalToggle())}/>
+          <Link className={styles.desktopnav} to="/">
+          <HomeSharpIcon style={{color:"#000"}}/>
           </Link>
-          <NotificationsSharpIcon onClick={()=>{
+          <NotificationsSharpIcon  onClick={()=>{
                                 dispatch(notificationModalUtil(!isNotification));
           }}
           />
           <NotificationContainer/>
           <Link to={`/profile/${adminUserDetails.username}`}>
-          <AccountCircleSharpIcon />
+          <AccountCircleSharpIcon  className={styles.desktopnav} style={{color:"#000"}}/>
           </Link>
      </Typography>
+  </Box>
+  <Box className={styles.mobilenavctnr}>
+  <Typography className={styles.mobilenav} component="div">
+  <Link   to="/">
+          <HomeSharpIcon style={{color:"#000"}}/>
+          </Link>
+          <AddBoxSharpIcon  onClick={()=>dispatch(uploadModalToggle())}/>
+          <Link to={`/profile/${adminUserDetails.username}`} >
+          <AccountCircleSharpIcon style={{color:"#000"}}/>
+          </Link>
+     </Typography>
+  </Box>
   </Box>
 
 

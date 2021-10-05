@@ -41,7 +41,7 @@ export default function PostCard(){
    // if(userDetails&&userDetails.username)
   //  );
       
-  return <Box className={styles.postsctnr} style={{overflowY:"unset"}}> 
+  return <Box className={styles.postsctnrprofile} style={{overflowY:"unset"}}> 
        {userDetails&&userPosts&&userPosts.length>0&&userPosts.map(post=>{
         //  const [{avatar,username}] = usersProfile.filter(user =>(user.userid===post.userid));
              return <CardData post={post} place={"profilepage"} avatar={userDetails.avatar} username={userDetails.username} />

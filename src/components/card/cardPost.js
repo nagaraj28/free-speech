@@ -33,9 +33,9 @@ export default function CardData({post,place,avatar,username}){
         // console.log({avatar,username});
 
 
-    return <Card className={styles.postctnr+" "+(isPostDeleted&&styles.postctnrfadeout)}>        
+    return <Box className={styles.postctnr+" "+(isPostDeleted&&styles.postctnrfadeout)}>    
     <CardContent>
-          <Link to={`/profile/${username}`}>
+          <Link to={`/profile/${username}`} style={{textDecoration:"none",color:"#000"}}>
           <IconButton aria-label="settings">
         { (avatar&&avatar.length>0)?<Avatar  alt="side profile image" src={avatar}/>:<AccountCircleSharpIcon/>}
       </IconButton>
@@ -100,9 +100,9 @@ export default function CardData({post,place,avatar,username}){
         dispatch(loadPostLikedDetails(post._id));
         dispatch(likeModalToggleUtil(true))
 
-      }}> {!(isPostDeleted)&&`${totalLikes.length} likes`}</Typography>:<Typography variant="body2" color="textSecondary" component="a">
+      }}> {!(isPostDeleted)&&`${totalLikes.length} likes`}</Typography>:<Typography variant="body2" color="textSecondary" component="p">
         {!isPostDeleted&&"Be the first one to like."}
         </Typography>
        }
-       </Card>;
+       </Box>;
 }

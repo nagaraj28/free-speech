@@ -55,9 +55,9 @@ export default function UserProfile(){
                 </Box>
                 <Box>
                     <Container  className={styles.userprofilechildone}>
-                    <Typography   p>{userDetails.username}</Typography >
-                    {
-                    (adminUserDetails.userid===userid)?<Link to={`/profile/update`} ><Button className={styles.editprofilebtn}>edit profile</Button></Link>:adminUserDetails.following.includes(userid)?
+                    <h4 style={{opacity:"0.7"}}   >{userDetails.username}</h4 >
+                   {
+                    (adminUserDetails.userid===userid)?<Link to={`/profile/update`} style={{textDecoration:"none",color:"#000"}}><Button className={styles.editprofilebtn}>edit profile</Button></Link>:adminUserDetails.following.includes(userid)?
                     <Button className={styles.editprofilebtn} onClick={()=>{
                         dispatch(unFollow(details))
                        // setIsFollowing(true);
@@ -87,10 +87,13 @@ export default function UserProfile(){
                     }}  p> {following&&following.length} following </Typography>
                     </Container>
                     <Container  className={styles.userprofilechildtwo}>
-                    <Typography  p>bio:-)  {bio&&bio}</Typography>
+                    <h4 >{fullname&&fullname}</h4>
                     </Container>
                     <Container  className={styles.userprofilechildtwo}>
-                    <Typography  p>link:-) {link&&link}</Typography>
+                    <Typography component="p">{bio&&bio}</Typography>
+                    </Container>
+                    <Container  className={styles.userprofilechildtwo}>
+                    <Typography component="a"> {link&&link}</Typography>
                     </Container>
                 </Box>
     </Box>

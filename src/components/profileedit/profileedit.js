@@ -1,5 +1,5 @@
 import React,{useState} from "react";
-import {Box,Typography,TextField,Avatar,Button} from "@material-ui/core";
+import {Box,Typography,TextField,Avatar,Button,TextareaAutosize} from "@material-ui/core";
 import AccountCircleSharpIcon from '@material-ui/icons/AccountCircleSharp';
 import { useAuthenticationDetails } from "../authentication/authenticationSlice";
 import styles from "./profileedit.module.css";
@@ -63,8 +63,8 @@ export default function ProfileEdit(){
  <label ><CameraAltOutlined/><TextField id="outlined-basic" label="Email" variant="outlined" type="file" size="50" style={{size:"50",display:"none"}} name="avatar"  accept="image/png,image/jpeg" onChange={handleChange}/></label><br/>
     <TextField id="outlined-basic" label="username" variant="outlined" className={styles.updatetextfield} type="text-field" name="username" placeholder="username" value={formInputs.username || ""} disabled/><br/>
     <TextField id="outlined-basic" label="fullname" variant="outlined" className={styles.updatetextfield} type="text-field" name="fullname"  placeholder="fullname" value={formInputs.fullname || ""} onChange={handleChange}/><br/>
-    <TextField  id="outlined-basic" label="bio" variant="outlined" className={styles.updatetextfield} type="text" name="bio" placeholder="bio" value={formInputs.bio || ""} onChange={handleChange}/><br/>
-    <TextField id="outlined-basic" label="link" variant="outlined" className={styles.updatetextfield} type="text-field" name="link" placeholder="website" value={formInputs.link || ""} onChange={handleChange}/><br/>
+    <TextField  id="outlined-basic"  label="bio" variant="outlined" className={styles.updatetextfield} type="text" name="bio" placeholder="bio" value={formInputs.bio || ""} onChange={handleChange}/><br/>
+    <TextField  id="outlined-basic" label="link" variant="outlined" className={styles.updatetextfield} type="textarea" name="link" placeholder="website" value={formInputs.link || ""} onChange={handleChange}/><br/>
     <Button className={styles.updatebtn} onClick={handleSubmit}>update</Button>
     </form>
     <Typography style={{color:"#0C4A6E"}} className={styles.updateheader}>

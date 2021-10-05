@@ -1,7 +1,7 @@
 .sideprofilectnr{
         position: absolute;
         top: 15%;
-        right: 10%;
+        right:10%;
 }
 
 
@@ -12,7 +12,7 @@
         margin-bottom: 20px;
 }       
 
-@media screen  and (max-width:1100px){
+@media screen  and (max-width:1150px){
         .sideprofilectnr{
                 display: none;
         }

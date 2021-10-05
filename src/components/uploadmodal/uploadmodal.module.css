@@ -1,8 +1,11 @@
 .modalctnr{
     max-width: 500px !important;
-    position: absolute;
+    position: fixed;
     top: 10%;
-    left: 35%;
+    left: 0;
+    right:0;
+    margin-left: auto;
+    margin-right: auto;
     background-color: white;
     text-align: center;
     /*padding: 1rem 2rem;*/

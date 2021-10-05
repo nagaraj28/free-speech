@@ -11,7 +11,7 @@ import Avatar from '@material-ui/core/Avatar';
 import IconButton from '@material-ui/core/IconButton';
 import FavoriteBorderSharpIcon from '@material-ui/icons/FavoriteBorderSharp';
 import styles from "./card.module.css";
-import { Box } from "@material-ui/core";
+import { Box,Container } from "@material-ui/core";
 import Image from "../../assets/image9.jpg";
 import {fetchPosts,usePosts,loadingusersprofile} from "./cardSlice";
 import CardData from "./cardPost";
@@ -39,6 +39,7 @@ export default function PostCard(){
              return <CardData post={post} place={"home"} avatar={avatar} username={username} />
        })
 }
+
   </Box>
 
 
