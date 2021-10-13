@@ -1,12 +1,13 @@
 import { createAsyncThunk,createSlice} from "@reduxjs/toolkit";
 import { useSelector, } from "react-redux";
 import axios from "axios";
+import { URL } from "../../cofig/config";
 
     export const validatecredentials = createAsyncThunk('users/verifycredentials',
     async (loginDetails)=>{
     //    console.log(loginDetails);
         try{
-            const {data} = await axios.post("http://localhost:5000/users/verifycredentials",loginDetails);
+            const {data} = await axios.post(`${URL}/users/verifycredentials`,loginDetails);
           return data;
         }catch(error){
             console.log("error in login request",error);
@@ -18,7 +19,7 @@ import axios from "axios";
     export const loaduserDetails = createAsyncThunk('userprofile/byuserid/userid',
     async (userid)=>{
         try{
-            const {data} = await axios.get(`http://localhost:5000/userprofile/byuserid/${userid}`);
+            const {data} = await axios.get(`${URL}/userprofile/byuserid/${userid}`);
             return data;
         }catch(error){
             console.log("error in login request",error);
@@ -33,7 +34,7 @@ import axios from "axios";
        const token = localStorage.getItem('x-auth-token');
        console.log(token);
        try{
-           const {data} = await axios.get("http://localhost:5000/users/tokenvalid",{headers:{
+           const {data} = await axios.get(`${URL}/users/tokenvalid`,{headers:{
                "x-auth-token":token
            }
        });
@@ -48,7 +49,7 @@ import axios from "axios";
     export  const createAccount  = createAsyncThunk("users/add",
     async(profileData)=>{
         try{
-         const {data} =  await axios.post("http://localhost:5000/users/add",profileData);
+         const {data} =  await axios.post(`${URL}/users/add`,profileData);
          return data;
     }catch(err){
         console.log(err);

@@ -11,9 +11,7 @@ import { useDispatch } from "react-redux";
 export default function Followers() {    
     const {userDetails,loadingFollowing,loadingFollowers,userFollowing,userFollowers} = useUserProfileDetails();
     const {showFollowingDialog,showFollowersDialog} = useFollowingFollowers();
-
     const dispatch = useDispatch();
-   
   //  console.log(userFollowers,userFollowing);
     return      (<Box  className={styles.followersctnr} onClick={()=>{
         //  dispatch(followersToggle());

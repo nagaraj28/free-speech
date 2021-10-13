@@ -9,7 +9,7 @@ import ImageUploading from 'react-images-uploading';
 export  const updateUserProfile  = createAsyncThunk("userprofile/profileupdate",
     async(profileData)=>{
         try{
-         const {data} =  await axios.post("http://localhost:5000/userprofile/profileupdate",profileData);
+         const {data} =  await axios.post(`${URL}/userprofile/profileupdate`,profileData);
          return data;
     }catch(err){
         console.log(err);

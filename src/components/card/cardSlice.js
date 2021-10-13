@@ -1,6 +1,7 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import {useSelector} from "react-redux";
 import axios from "axios";
+import { URL } from "../../cofig/config";
 
 
 /*
@@ -9,7 +10,7 @@ fetches all the posts (user with following list people's posts .)
 export const fetchPosts = createAsyncThunk('user/posts',
 async (userid)=>{
     try{
-        const {data} = await axios.get(`http://localhost:5000/user/posts/${userid}`);    
+        const {data} = await axios.get(`${URL}/user/posts/${userid}`);    
         return data;
     }   
     catch(error){
@@ -26,7 +27,7 @@ export const uploadPost = createAsyncThunk('user/addpost',
  async (newPost)=>{
     try{
         const {data} = 
-        await axios.post("http://localhost:5000/user/addpost",newPost);
+        await axios.post(`${URL}/user/addpost`,newPost);
         return data;
     }
     catch(error){
@@ -42,7 +43,7 @@ export const loadLikePost = createAsyncThunk('user/likepost',
     console.log("curretnPost in slice",currentPost)
     try{
         const data = 
-        await axios.post("http://localhost:5000/user/likepost",currentPost);
+        await axios.post(`${URL}/user/likepost`,currentPost);
         return data;
     }
     catch(error){
@@ -57,7 +58,7 @@ export const loadremoveLikeFromPost = createAsyncThunk('user/removepostlike',
      console.log(currentPost)
     try{
         const data = 
-        await axios.post("http://localhost:5000/user/removepostlike",currentPost);
+        await axios.post(`${URL}/user/removepostlike`,currentPost);
         return data;
     }
     catch(error){
@@ -73,7 +74,7 @@ delete post from profile page;
 export const loaddeletepost = createAsyncThunk('user/deletepost/postid',
     async (postid)=>{
         try{
-          const {data} =  await axios.post(`http://localhost:5000/user/deletepost/${postid}`);
+          const {data} =  await axios.post(`${URL}/user/deletepost/${postid}`);
           return data;
         }
         catch(err){
@@ -89,7 +90,7 @@ export const loadingusersprofile = createAsyncThunk('userprofile',
 
 async ()=>{
     try{
-        const {data} = await axios.get("http://localhost:5000/userprofile/");
+        const {data} = await axios.get(`${URL}/userprofile/`);
         return data;
     }catch(error){
         console.log("error fetching users profile ",error);
@@ -103,7 +104,7 @@ export const loadPostLikedDetails = createAsyncThunk('postlikes/postid',
 
 async (postid)=>{
     try{
-        const {data} = await axios.get(`http://localhost:5000/user/postlikes/${postid}`);
+        const {data} = await axios.get(`${URL}/user/postlikes/${postid}`);
         return data;
     }catch(error){
         console.log("error fetching post liked users details ",error);

@@ -2,11 +2,12 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import React from "react";
 import axios from "axios";
 import { useSelector } from "react-redux";
+import { URL } from "../../cofig/config";
 
 export const loadUserProfile  = createAsyncThunk('userprofile/username',
 async(username)=>{
     try{
-      const {data} =   await axios.get(`http://localhost:5000/userprofile/${username}`);
+      const {data} =   await axios.get(`${URL}/userprofile/${username}`);
       return data;
     }
     catch(error){
@@ -18,7 +19,7 @@ async(username)=>{
 export const loadProfileofPost  = createAsyncThunk('userprofile/userid',
 async(userid)=>{
     try{
-      const {data} =   await axios.get(`http://localhost:5000/userprofile/${userid}`);
+      const {data} =   await axios.get(`${URL}/userprofile/${userid}`);
       return data;
     }
     catch(error){
@@ -30,7 +31,7 @@ async(userid)=>{
 export const loadUserPosts  = createAsyncThunk('user/userposts/userid',
 async(userid)=>{
     try{
-      const {data} =   await axios.get(`http://localhost:5000/user/userposts/${userid}`);
+      const {data} =   await axios.get(`${URL}/user/userposts/${userid}`);
       return data;
     }
     catch(error){
@@ -42,7 +43,7 @@ async(userid)=>{
 export const loadingUserFollowing  = createAsyncThunk('userprofile/following/userid',
 async(userid)=>{
     try{
-      const {data} =   await axios.get(`http://localhost:5000/userprofile/following/${userid}`);
+      const {data} =   await axios.get(`${URL}/userprofile/following/${userid}`);
       return data;
     }
     catch(error){
@@ -54,8 +55,8 @@ async(userid)=>{
 export const loadingUserFollowers  = createAsyncThunk('userprofile/followers/userid',
 async(userid)=>{
     try{
-        console.log(`http://localhost:5000/userprofile/followers/${userid}`);
-              const {data} =   await axios.get(`http://localhost:5000/userprofile/followers/${userid}`);
+        console.log(`${URL}/userprofile/followers/${userid}`);
+              const {data} =   await axios.get(`${URL}/userprofile/followers/${userid}`);
       return data;
     }
     catch(error){

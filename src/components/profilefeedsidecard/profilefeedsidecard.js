@@ -40,7 +40,7 @@ export default function ProfileFeedSideCard(){
             </Container>
             <Container className={styles.sideprofilesuggestion}>
                 {
-            usersProfile.length>0&&usersProfile.map((profile,index)=>{
+            usersProfile&&usersProfile.length>0&&usersProfile.map((profile,index)=>{
           //  index>=5&&break;
                 return index<5&&<ProfileMiniCard profile={profile} page="home" />
             })

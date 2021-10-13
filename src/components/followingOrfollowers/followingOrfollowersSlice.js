@@ -1,11 +1,12 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { useSelector } from "react-redux";
 import axios from "axios";
+import { URL } from "../../cofig/config";
 
 export const addFollowing = createAsyncThunk('userprofile/follow',
 async(details)=>{
 try{
-      const {data} =axios.post('http://localhost:5000/userprofile/follow',details);
+      const {data} =axios.post(`${URL}/userprofile/follow`,details);
       return data;
 }
 catch(err){
@@ -16,7 +17,7 @@ catch(err){
 export const unFollow = createAsyncThunk('userprofile/unfollow',
 async(details)=>{
 try{
-      const {data} =axios.post('http://localhost:5000/userprofile/unfollow',details);
+      const {data} =axios.post(`${URL}/userprofile/unfollow`,details);
       return data;
 }
 catch(err){
