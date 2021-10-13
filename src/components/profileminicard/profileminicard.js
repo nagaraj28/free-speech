@@ -37,7 +37,7 @@ export default function ProfileMiniCard({profile,page,date}){
                 {
                 (avatar&&avatar.length>0)?
                 <Avatar  className={(page==="homefeedprofile")?styles.homefeedprofileavatar:styles.searchprofileavatar}  alt="search profile image" src={profileImage}/>:
-                <Avatar className={(page==="homefeedprofile")?styles.homefeedprofileavatar:styles.searchprofileavatar}   style={{backgroundColor:colors[colorIndex]}} >{fullname[0]}</Avatar>
+                <Avatar className={(page==="homefeedprofile")?styles.homefeedprofileavatar:styles.searchprofileavatar}   style={{backgroundColor:colors[colorIndex]}} >{fullname&&fullname[0]}</Avatar>
             }
             </Link>
                       <Link style={{textDecoration:"none",color:"#1C1917"}} to={`/profile/${username}`} onClick={()=>{

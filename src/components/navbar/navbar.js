@@ -30,10 +30,10 @@ export default function NavBar(){
   const {loggeduserid,adminUserDetails} = useAuthenticationDetails();
   const  {isNotification} = useNotificationModal();
 
-  useEffect(()=>{
+  /*useEffect(()=>{
     dispatch(loaduserDetails(loggeduserid));
   },[loggeduserid])
-  console.log(usersProfile);
+  console.log(usersProfile);*/
  
    // console.log(searchedProfiles);
   return <Box><Box className={styles.navctnr}>

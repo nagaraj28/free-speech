@@ -1,4 +1,4 @@
-import React,{useState} from "react";
+import React,{useState,useEffect} from "react";
 import {Box,TextField,Typography,Button} from "@material-ui/core";
 //import styles from "./loginform.module.css";
 import { useHistory } from "react-router";
@@ -17,9 +17,14 @@ export default function LoginForm(){
          email:"",
          password:""
      });
-     const {loggeduserid,loadinguserid} = useAuthenticationDetails();
-     if(loadinguserid===false&&loggeduserid&&loggeduserid!=="wrong credentials,please check!"&&loggeduserid!=="error logging in"&&loggeduserid!=="processing")
-     history.push('/');
+     const {loginError,loadinguserid} = useAuthenticationDetails();
+   //  if(loadinguserid===false&&loggeduserid&&loggeduserid!=="wrong credentials,please check!"&&loggeduserid!=="error logging in"&&loggeduserid!=="processing")
+    //history.push('/');
+   /* useEffect(()=>{
+      if(loadinguserid===false&&loggeduserid&&loggeduserid!=="wrong credentials,please check!"&&loggeduserid!=="error logging in"&&loggeduserid!=="processing")
+      history.push('/');
+
+    },[loggeduserid]);*/
         const handleSubmit = ()=>{
                 console.log(loginEmailAndPassword.email,loginEmailAndPassword.password);
                 dispatch(validatecredentials(loginEmailAndPassword));
@@ -46,8 +51,8 @@ export default function LoginForm(){
                      } }/>
                      <br/>
                      <Button className={styles.updatebtn} variant="outlined" disabled={!(loginEmailAndPassword.email.length>0&&loginEmailAndPassword.password.length>0)}  onClick={()=>{handleSubmit()}}>login</Button>
-                     {(loggeduserid==="wrong credentials,please check!"||loggeduserid==="error logging in"||loggeduserid==="processing")&&<Typography style={{color:"#0C4A6E"}} className={styles.updateheader} >
-    {loggeduserid}
+                     {(loginError==="wrong credentials,please check!"||loginError==="error logging in"||loginError==="processing")&&<Typography style={{color:"#0C4A6E"}} className={styles.updateheader} >
+    {loginError}
  </Typography>
 }
                      <p>Don't have an account create <Link to="/signup">here</Link></p>

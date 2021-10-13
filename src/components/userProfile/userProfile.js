@@ -12,6 +12,7 @@ import {loaduserDetails} from "../authentication/authenticationSlice"
 import IconButton from '@material-ui/core/IconButton';
 import AccountCircleSharpIcon from '@material-ui/icons/AccountCircleSharp';
 import {Link} from "react-router-dom";
+import {resetUser} from "../authentication/authenticationSlice";
 
 
 
@@ -64,18 +65,21 @@ export default function UserProfile(){
                        setTimeout(()=>{
                         dispatch(loaduserDetails(loggeduserid))
                         dispatch(loadUserProfile(username));
-                    },1000);
+                    },2000);
                     }}>Following</Button>:<Button className={styles.editprofilebtn} onClick={()=>{
                       //  setIsFollowing(true);
                         dispatch(addFollowing(details));
                         setTimeout(()=>{
                             dispatch(loaduserDetails(loggeduserid))
                             dispatch(loadUserProfile(username));
-                        },1000);
+                        },2000);
 
                     }}>Follow</Button>
                     }
-                    {adminUserDetails.userid===userid&&<ExitToApp/>}
+                    {adminUserDetails.userid===userid&&<ExitToApp onClick={()=>{
+                                                localStorage.removeItem('x-auth-token');
+                                                  dispatch(resetUser());
+                    }}/>}
                     </Container>
                     <Container  className={styles.userprofilechildtwo}>
                     <Typography  p> {userPosts&&userPosts.length} posts </Typography >
