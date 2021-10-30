@@ -29,7 +29,7 @@ export default function NotificationContainer(){
                     dispatch(notificationModalUtil(false));
                 }}/>
                 {
-                (loadingFollowing===false&&userFollowing.length!==0&&userFollowing.followingData.length>0)?<Box className={styles.notisubctnr}>{                
+                (loadingFollowing===false&&userFollowing&&userFollowing.length!==0&&userFollowing.followingData.length>0)?<Box className={styles.notisubctnr}>{                
                                 userFollowing.followingData.map((profile,index)=>{
                                     let   times =  userFollowing.timesArray[1];
                                     times =times.split("-");
